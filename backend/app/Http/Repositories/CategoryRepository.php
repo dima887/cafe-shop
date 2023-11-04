@@ -13,17 +13,17 @@ class CategoryRepository
      */
     static public function getAllCategory(): array
     {
-        return Category::all()->toArray();
+        return Category::with('products')->get()->toArray();
     }
 
     /**
      * Get category by ID
      *
      * @param int $id
-     * @return mixed
+     * @return array
      */
-    static public function getCategoryById(int $id): mixed
+    static public function getCategoryById(int $id): array
     {
-        return Category::findOrFail($id);
+        return Category::with('products')->where('id', $id)->get()->toArray();
     }
 }

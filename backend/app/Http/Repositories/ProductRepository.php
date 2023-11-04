@@ -13,17 +13,17 @@ class ProductRepository
      */
     static public function getAllProduct(): array
     {
-        return Product::all()->toArray();
+        return Product::with(['category', 'reviews'])->get()->toArray();
     }
 
     /**
      * Get product by ID
      *
      * @param int $id
-     * @return mixed
+     * @return array
      */
-    static public function getProductById(int $id): mixed
+    static public function getProductById(int $id): array
     {
-        return Product::findOrFail($id);
+        return Product::with(['category', 'reviews'])->where('id', $id)->get()->toArray();
     }
 }

@@ -11,20 +11,23 @@ class OrderRepository
      *
      * @return array
      */
-    static public function getAllCategory(): array
+    static public function getAllOrder(): array
     {
-        return Order::all()->toArray();
+        return Order::with(['product', 'type_order', 'user', 'status_order'])->get()->toArray();
     }
 
     /**
      * Get order by ID
      *
      * @param int $id
-     * @return mixed
+     * @return array
      */
-    static public function getOrderById(int $id): mixed
+    static public function getOrderById(int $id): array
     {
-        return Order::findOrFail($id);
+        return Order::with(['product', 'type_order', 'user', 'status_order'])
+            ->where('id', $id)
+            ->get()
+            ->toArray();
     }
 
     /**
