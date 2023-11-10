@@ -66,6 +66,15 @@ services:
     networks:
       - shop-network
 
+  stripe-cli:
+    image: stripe/stripe-cli
+    container_name: stripe-cli
+    command: "listen --api-key ${STRIPE_API_KEY} --device-name ${STRIPE_DEVICE_NAME} --forward-to http://backend:8080/api/payment/webhook/"
+    env_file:
+      - ./stripe-cli/stripe_cli.env
+    networks:
+      - shop-network
+
 #  postgres:
 #    build:
 #      context: ./postgresql

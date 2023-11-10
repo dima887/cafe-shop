@@ -123,6 +123,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/imangazaliev/didom" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/stripe/stripe-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

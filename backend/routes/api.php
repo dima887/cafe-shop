@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ParserNewsController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
@@ -81,5 +82,8 @@ Route::prefix('order')->group(function () {
     Route::delete('/{id}', [OrderController::class, 'delete']);
 });
 
-Route::get('parse-news-sky', [ParserNewsController::class, 'skyParse']);
-Route::get('parse-news-bbc', [ParserNewsController::class, 'bbcParse']);
+Route::get('/parse-news-sky', [ParserNewsController::class, 'skyParse']);
+Route::get('/parse-news-bbc', [ParserNewsController::class, 'bbcParse']);
+
+Route::post('/payment', [PaymentController::class, 'index']);
+Route::post('/payment/webhook', [PaymentController::class, 'webhook']);
