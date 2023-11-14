@@ -3,7 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
@@ -16,6 +17,7 @@ class Handler extends ExceptionHandler
         'current_password',
         'password',
         'password_confirmation',
+        ClientException::class,
     ];
 
     /**
@@ -23,8 +25,13 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (ClientException $e, Request $request) {
+            return response()->json($e->getUserMessage(), $e->getUserCode());
+        });
+
+        $this->renderable(function (\Exception $e, Request $request) {
+            //Log::error($e->getMessage(), ['trace' => $e->getTrace()]);
+            //return response()->json('Oops, there are temporary problems', 500);
         });
     }
 }

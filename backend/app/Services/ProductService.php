@@ -32,17 +32,16 @@ final class ProductService
      * Update product
      *
      * @param ProductUpdateDto $request
-     * @return mixed
+     * @return bool
      */
-    public function update(ProductUpdateDto $request): mixed
+    public function update(ProductUpdateDto $request): bool
     {
-        $product = ProductRepository::getProductById($request->id);
+        $product = Product::findOrFail($request->id);
 
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->thumbnail = $request->thumbnail;
-        ++$product->sold_count;
         $product->category_id = $request->category_id;
 
         return $product->save();

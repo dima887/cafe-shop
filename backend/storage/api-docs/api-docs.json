@@ -1,0 +1,1078 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Cafe Shop API",
+        "description": "API for managing menu, orders, and other cafe-related operations.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/category": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get a list of all categories",
+                "operationId": "327644f4d836240fa297b2822ab6ca92",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        },
+                                        "products": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "price": {
+                                                        "type": "number",
+                                                        "format": "double"
+                                                    },
+                                                    "thumbnail": {
+                                                        "type": "string"
+                                                    },
+                                                    "sold_count": {
+                                                        "type": "integer"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Save new category",
+                "operationId": "de40ad04180a48262a05cf249f785ab3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category"
+                                ],
+                                "properties": {
+                                    "category": {
+                                        "type": "string",
+                                        "example": "New Category"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Category successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                },
+                                "example": true
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/category/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get category by ID",
+                "operationId": "25690688339275caf7ded3e8702e7670",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        },
+                                        "products": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "price": {
+                                                        "type": "number",
+                                                        "format": "double"
+                                                    },
+                                                    "thumbnail": {
+                                                        "type": "string"
+                                                    },
+                                                    "sold_count": {
+                                                        "type": "integer"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Category not found"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update category by ID",
+                "operationId": "9be67b4880d28356ade2ebc0b425415e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Updated Category"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                },
+                                "example": true
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete category by ID",
+                "operationId": "d2437e8e0e200592efe7305af1c302d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "int"
+                                },
+                                "example": 1
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/parse-news-sky": {
+            "post": {
+                "tags": [
+                    "News Parsing"
+                ],
+                "summary": "Parse food news from news.sky.com and save it to the database.",
+                "operationId": "9beac9efc871794883a82b1bde923418",
+                "responses": {
+                    "200": {
+                        "description": "Successfully parsed and saved to the database.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                },
+                                "example": true
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to parse or save to the database.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/parse-news-bbc": {
+            "post": {
+                "tags": [
+                    "News Parsing"
+                ],
+                "summary": "Parse food news from bbc.co.uk and save it to the database.",
+                "operationId": "10053472a2f145ff4aa180b9482face1",
+                "responses": {
+                    "200": {
+                        "description": "Successfully parsed and saved to the database.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                },
+                                "example": true
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to parse or save to the database.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payment": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Get payment page url from Stripe",
+                "operationId": "36ec1ffc6a03efe3a69c1159cc277325",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id",
+                                    "type_order_id",
+                                    "product",
+                                    "success_url",
+                                    "cancel_url"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "type_order_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "product": {
+                                        "required": [
+                                            "id",
+                                            "name",
+                                            "price",
+                                            "quantity"
+                                        ],
+                                        "properties": {
+                                            "id": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                }
+                                            },
+                                            "name": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string",
+                                                    "example": "Lattes"
+                                                }
+                                            },
+                                            "price": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number",
+                                                    "format": "double",
+                                                    "example": 5
+                                                }
+                                            },
+                                            "quantity": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "success_url": {
+                                        "type": "string",
+                                        "example": "http://localhost:3000/?success=true"
+                                    },
+                                    "cancel_url": {
+                                        "type": "string",
+                                        "example": "http://localhost:3000/?success=false"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Stripe payment page URL",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "https://checkout.stripe.com/c/pay/efsdfdrgrdg"
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payment/webhook": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Handle Stripe webhook response",
+                "operationId": "e3d80c0b0c142b0befc4293cca0bcc75",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                },
+                                "example": true
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get a list of all products",
+                "operationId": "5cc57bec35d0f2045983cc8dcd00eccd",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "price": {
+                                                "type": "number",
+                                                "format": "double"
+                                            },
+                                            "thumbnail": {
+                                                "type": "string"
+                                            },
+                                            "sold_count": {
+                                                "type": "integer"
+                                            },
+                                            "category_id": {
+                                                "type": "integer"
+                                            },
+                                            "category": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        },
+                                                        "price": {
+                                                            "type": "number",
+                                                            "format": "double"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "reviews": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "review": {
+                                                            "type": "string"
+                                                        },
+                                                        "userd_id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "product_id": {
+                                                            "type": "integer"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Save new product",
+                "operationId": "1d0b0d8724685b7b8f9d87f403bfc4df",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "price",
+                                    "thumbnail",
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "New Product"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Description of the new product"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "thumbnail": {
+                                        "type": "string"
+                                    },
+                                    "category_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product/{id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get product by ID",
+                "operationId": "2768d88590e39a7ded1d0032e64dded7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "price": {
+                                                "type": "number",
+                                                "format": "double"
+                                            },
+                                            "thumbnail": {
+                                                "type": "string"
+                                            },
+                                            "sold_count": {
+                                                "type": "integer"
+                                            },
+                                            "category_id": {
+                                                "type": "integer"
+                                            },
+                                            "category": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        },
+                                                        "price": {
+                                                            "type": "number",
+                                                            "format": "double"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "reviews": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "review": {
+                                                            "type": "string"
+                                                        },
+                                                        "userd_id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "product_id": {
+                                                            "type": "integer"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Update product by ID",
+                "operationId": "d3467c795490afbb49680821c9bd6b0d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "price",
+                                    "thumbnail",
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Updated Product"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Updated description of the product"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "thumbnail": {
+                                        "type": "string"
+                                    },
+                                    "category_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                },
+                                "example": true
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Delete product by ID",
+                "operationId": "118d6027a434cda88b95d382d657bd05",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "int"
+                                },
+                                "example": 1
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Oops, there are temporary problems",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Oops, there are temporary problems"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -32,7 +32,7 @@ Route::prefix('category')->group(function () {
 
     Route::post('/', [CategoryController::class, 'store']);
 
-    Route::post('/{id}', [CategoryController::class, 'update']);
+    Route::put('/{id}', [CategoryController::class, 'update']);
 
     Route::delete('/{id}', [CategoryController::class, 'delete']);
 });
@@ -48,7 +48,7 @@ Route::prefix('product')->group(function () {
 
     Route::post('/', [ProductController::class, 'store']);
 
-    Route::post('/{id}', [ProductController::class, 'update']);
+    Route::put('/{id}', [ProductController::class, 'update']);
 
     Route::delete('/{id}', [ProductController::class, 'delete']);
 });
@@ -82,8 +82,8 @@ Route::prefix('order')->group(function () {
     Route::delete('/{id}', [OrderController::class, 'delete']);
 });
 
-Route::get('/parse-news-sky', [ParserNewsController::class, 'skyParse']);
-Route::get('/parse-news-bbc', [ParserNewsController::class, 'bbcParse']);
+Route::post('/parse-news-sky', [ParserNewsController::class, 'skyParse']);
+Route::post('/parse-news-bbc', [ParserNewsController::class, 'bbcParse']);
 
 Route::post('/payment', [PaymentController::class, 'index']);
 Route::post('/payment/webhook', [PaymentController::class, 'webhook']);

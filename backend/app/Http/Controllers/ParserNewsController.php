@@ -12,7 +12,27 @@ class ParserNewsController extends Controller
 {
 
     /**
-     * Parse food news from news.sky.com and save it to the database.
+     * @OA\Post(
+     *     path="/api/parse-news-sky",
+     *     summary="Parse food news from news.sky.com and save it to the database.",
+     *     tags={"News Parsing"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Successfully parsed and saved to the database.",
+     *         @OA\JsonContent(
+     *             type="boolean",
+     *             example=true
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="500",
+     *         description="Failed to parse or save to the database.",
+     *         @OA\JsonContent(
+     *             type="string",
+     *             example="Oops, there are temporary problems"
+     *         )
+     *     ),
+     * )
      *
      * @param ParseService $parseService
      * @return JsonResponse
@@ -23,7 +43,27 @@ class ParserNewsController extends Controller
     }
 
     /**
-     * Parse food news from bbc.co.uk and save it to the database.
+     * @OA\Post(
+     *     path="/api/parse-news-bbc",
+     *     summary="Parse food news from bbc.co.uk and save it to the database.",
+     *     tags={"News Parsing"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Successfully parsed and saved to the database.",
+     *         @OA\JsonContent(
+     *             type="boolean",
+     *             example=true
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="500",
+     *         description="Failed to parse or save to the database.",
+     *         @OA\JsonContent(
+     *             type="string",
+     *             example="Oops, there are temporary problems"
+     *         )
+     *     ),
+     * )
      *
      * @param ParseService $parseService
      * @return JsonResponse

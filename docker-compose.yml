@@ -1,19 +1,19 @@
 version: '3'
 services:
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    container_name: frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
-    networks:
-      - shop-network
+#  frontend:
+#    build:
+#      context: ./frontend
+#      dockerfile: Dockerfile
+#    restart: unless-stopped
+#    container_name: frontend
+#    ports:
+#      - "3000:3000"
+#    volumes:
+#      - ./frontend/src:/app/src
+#      - ./frontend/public:/app/public
+#    networks:
+#      - shop-network
 
   backend:
     build:

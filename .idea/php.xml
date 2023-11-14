@@ -125,6 +125,11 @@
       <path value="$PROJECT_DIR$/backend/vendor/brick/math" />
       <path value="$PROJECT_DIR$/backend/vendor/imangazaliev/didom" />
       <path value="$PROJECT_DIR$/backend/vendor/stripe/stripe-php" />
+      <path value="$PROJECT_DIR$/backend/vendor/zircote/swagger-php" />
+      <path value="$PROJECT_DIR$/backend/vendor/darkaonline/l5-swagger" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/backend/vendor/swagger-api/swagger-ui" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

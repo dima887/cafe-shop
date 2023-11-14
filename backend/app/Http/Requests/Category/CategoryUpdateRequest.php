@@ -23,19 +23,7 @@ class CategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category' => 'required'
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-            'category.required' => 'Enter category',
+            'category' => ['required', 'max:255']
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Exceptions\ClientException;
 use App\Models\Product;
 
 class ProductRepository
@@ -20,10 +21,15 @@ class ProductRepository
      * Get product by ID
      *
      * @param int $id
+     * @throws ClientException
      * @return array
      */
     static public function getProductById(int $id): array
     {
-        return Product::with(['category', 'reviews'])->where('id', $id)->get()->toArray();
+        $product = Product::with(['category', 'reviews'])->where('id', $id)->get()->toArray();
+        if (!$product) {
+            throw new ClientException('Product not found', 404);
+        }
+        return $product;
     }
 }

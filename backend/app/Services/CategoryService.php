@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Dto\Category\CategoryCreateDto;
 use App\Dto\Category\CategoryUpdateDto;
-use App\Http\Repositories\CategoryRepository;
+use App\Exceptions\ClientException;
 use App\Models\Category;
 
 final class CategoryService
@@ -28,11 +28,11 @@ final class CategoryService
      * Update category
      *
      * @param CategoryUpdateDto $request
-     * @return mixed
+     * @return bool
      */
-    public function update(CategoryUpdateDto $request): mixed
+    public function update(CategoryUpdateDto $request): bool
     {
-        $category = CategoryRepository::getCategoryById($request->id);
+        $category = Category::findOrFail($request->id);
 
         $category->category = $request->category;
 

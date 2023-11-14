@@ -23,19 +23,11 @@ class ProductUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-
+            'name' => ['required', 'max:255'],
+            'description' => ['required', 'max:255'],
+            'price' => ['required', 'numeric'],
+            'thumbnail' => ['required', 'max:255'],
+            'category_id' => ['required', 'integer'],
         ];
     }
 

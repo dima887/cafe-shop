@@ -57,6 +57,7 @@ class StripeFacade
      * @var array
      */
     private array $line_items = [];
+
     public function __construct(object $data)
     {
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
@@ -68,28 +69,20 @@ class StripeFacade
     }
 
     /**
-     * Send a payment request
+     * Get payment page url from Stripe
      *
-     * @return Session
+     * @return string
      * @throws ApiErrorException
      */
-    public function payment(): Session
+    public function payment(): string
     {
-        header('Content-Type: application/json');
-
         $this->createProduct();
         $this->createPrice();
         $this->createMetadata();
         $this->createLineItems();
         $checkout_session = $this->checkoutSession();
 
-        header("HTTP/1.1 303 See Other");
-        header("HTTP/1.1 303 See Other");
-        header("Location: " . $checkout_session->url);
-        header("Access-Control-Expose-Headers: Location");
-
-        return $checkout_session;
-
+        return $checkout_session->url;
     }
 
     /**

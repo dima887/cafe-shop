@@ -124,6 +124,11 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/imangazaliev/didom" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/stripe/stripe-php" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/darkaonline/l5-swagger" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/doctrine/annotations" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/swagger-api/swagger-ui" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/zircote/swagger-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

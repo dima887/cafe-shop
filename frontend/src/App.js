@@ -3,6 +3,7 @@ import './App.css';
 import http from "./axios";
 import React from "react";
 
+
 function App() {
 
     const payment = (event) => {
@@ -15,7 +16,7 @@ function App() {
             product: {
                 id: [2, 1],
                 name: ['Lattes', 'Hot-dogidog'],
-                price: [5, 8],
+                price: [5.50, 8.99],
                 quantity: [1, 3],
             },
             success_url: 'http://localhost:3000/?success=true',
@@ -23,7 +24,7 @@ function App() {
         })
             .then((res) => {
                 console.log(res);
-                window.location.href = res.headers.get('Location');
+                window.location.href = res.data;
             })
             .catch((er) => {
                 console.log(er)
@@ -32,6 +33,8 @@ function App() {
 
 
   return (
+        // <Routes/>
+
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />

@@ -12,13 +12,13 @@ use Stripe\Exception\ApiErrorException;
 final class PaymentService
 {
     /**
-     * Submit a payment request using Stripe
+     * Get payment page url from Stripe
      *
      * @param StripeCreateDto $stripeCreateDto
-     * @return Session
+     * @return string
      * @throws ApiErrorException
      */
-    public function payment(StripeCreateDto $stripeCreateDto): \Stripe\Checkout\Session
+    public function payment(StripeCreateDto $stripeCreateDto): string
     {
         $stripe = new StripeFacade($stripeCreateDto);
         return $stripe->payment();
@@ -31,27 +31,32 @@ final class PaymentService
      */
     public function webhook(): bool
     {
-        $event = StripeFacade::webhook();
+        try {
+            $event = StripeFacade::webhook();
 
-        switch ($event->type) {
-            case 'checkout.session.completed':
+            switch ($event->type) {
+                case 'checkout.session.completed':
 
-                $data = $event->data->object->metadata;
-                $data->product_id = explode(', ', $data->product_id);
+                    //todo ++sold_count
+                    $data = $event->data->object->metadata;
+                    $data->product_id = explode(', ', $data->product_id);
 
-                foreach ($data->product_id as $value) {
-                    $order = new Order();
-                    $order->product_id = $value;
-                    $order->user_id = $data->user_id;
-                    $order->type_order_id = $data->type_order_id;
-                    $order->status_order_id = StatusOrder::Paid->value;
-                    if (!$order->save()) return false;
-                }
-                break;
-            default:
-                echo 'Received unknown event type ' . $event->type;
+                    foreach ($data->product_id as $value) {
+                        $order = new Order();
+                        $order->product_id = $value;
+                        $order->user_id = $data->user_id;
+                        $order->type_order_id = $data->type_order_id;
+                        $order->status_order_id = StatusOrder::Paid->value;
+                        if (!$order->save()) return false;
+                    }
+                    break;
+                default:
+                    echo 'Received unknown event type ' . $event->type;
+            }
+
+            return true;
+        }catch (\Exception $e) {
+            return $e->getMessage();
         }
-
-        return true;
     }
 }

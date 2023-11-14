@@ -23,19 +23,14 @@ class StripeCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-
+            'product.id.*' => ['required', 'integer'],
+            'product.name.*' => ['required', 'max:255'],
+            'product.price.*' => ['required', 'numeric'],
+            'product.quantity.*' => ['required', 'integer'],
+            'user_id' => ['required', 'integer'],
+            'type_order_id' => ['required', 'integer'],
+            'success_url' => ['required', 'max:255'],
+            'cancel_url' => ['required', 'max:255'],
         ];
     }
 
