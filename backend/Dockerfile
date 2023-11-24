@@ -4,6 +4,8 @@ RUN apt-get update && apt-get install -y libpq-dev libzip-dev unzip git \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql pdo_mysql zip
 
+RUN pecl install redis && docker-php-ext-enable redis
+
 #RUN pecl install pecl_http
 #RUN echo "extension=http.so" >> /usr/local/etc/php/php.ini
 

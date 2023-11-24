@@ -24,7 +24,7 @@ function App() {
         })
             .then((res) => {
                 console.log(res);
-                window.location.href = res.data;
+                window.location.href = res.data.success;
             })
             .catch((er) => {
                 console.log(er)

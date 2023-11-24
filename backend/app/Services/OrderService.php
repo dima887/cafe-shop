@@ -7,7 +7,7 @@ use App\Dto\Order\OrderUpdateStatusDto;
 use App\Http\Repositories\OrderRepository;
 use App\Models\Order;
 
-final class OrderService
+class OrderService
 {
     /**
      * Save new order

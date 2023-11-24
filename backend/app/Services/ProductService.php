@@ -4,10 +4,12 @@ namespace App\Services;
 
 use App\Dto\Product\ProductCreateDto;
 use App\Dto\Product\ProductUpdateDto;
+use App\Exceptions\ClientException;
 use App\Http\Repositories\ProductRepository;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-final class ProductService
+class ProductService
 {
     /**
      * Save new product
@@ -32,19 +34,24 @@ final class ProductService
      * Update product
      *
      * @param ProductUpdateDto $request
+     * @throws ClientException
      * @return bool
      */
     public function update(ProductUpdateDto $request): bool
     {
-        $product = Product::findOrFail($request->id);
+        try {
+            $product = Product::findOrFail($request->id);
 
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->thumbnail = $request->thumbnail;
-        $product->category_id = $request->category_id;
+            $product->name = $request->name;
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->thumbnail = $request->thumbnail;
+            $product->category_id = $request->category_id;
 
-        return $product->save();
+            return $product->save();
+        } catch (ModelNotFoundException) {
+            throw new ClientException('Product not found', 404);
+        }
     }
 
     /**

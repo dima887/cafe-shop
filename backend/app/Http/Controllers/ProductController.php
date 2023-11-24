@@ -59,8 +59,8 @@ class ProductController extends Controller
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -171,8 +171,7 @@ class ProductController extends Controller
      *         description="Product successfully created",
      *         @OA\JsonContent(
      *             type="object",
-     *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="success", type="boolean", example="true")
      *         )
      *     ),
      *     @OA\Response(
@@ -188,8 +187,8 @@ class ProductController extends Controller
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -200,7 +199,7 @@ class ProductController extends Controller
      */
     public function store(ProductCreateRequest $request, ProductService $productService): JsonResponse
     {
-        return response()->json($productService->create($request->getDto()), 201);
+        return response()->json(['success' => $productService->create($request->getDto())], 201);
     }
 
     /**
@@ -230,8 +229,8 @@ class ProductController extends Controller
      *         response="200",
      *         description="Product successfully updated",
      *         @OA\JsonContent(
-     *             type="boolean",
-     *             example=true
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example="true")
      *         )
      *     ),
      *     @OA\Response(
@@ -239,7 +238,7 @@ class ProductController extends Controller
      *         description="Product not found",
      *         @OA\JsonContent(
      *             type="object",
-     *             @OA\Property(property="message", type="string", example="Product not found"),
+     *             @OA\Property(property="error", type="string", example="Category not found")
      *         )
      *     ),
      *     @OA\Response(
@@ -255,8 +254,8 @@ class ProductController extends Controller
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -264,11 +263,12 @@ class ProductController extends Controller
      * @param ProductUpdateRequest $request
      * @param ProductService $productService
      * @param int $id
+     * @throws ClientException
      * @return JsonResponse
      */
     public function update(ProductUpdateRequest $request, ProductService $productService, int $id): JsonResponse
     {
-        return response()->json($productService->update($request->getDto($id)));
+        return response()->json(['success' => $productService->update($request->getDto($id))]);
     }
 
     /**
@@ -287,16 +287,16 @@ class ProductController extends Controller
      *         response="200",
      *         description="Product successfully deleted",
      *         @OA\JsonContent(
-     *             type="int",
-     *             example=1
+     *             type="object",
+     *             @OA\Property(property="success", type="int", example="1")
      *         )
      *     ),
      *     @OA\Response(
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -307,6 +307,6 @@ class ProductController extends Controller
      */
     public function delete(ProductService $productService, int $id): JsonResponse
     {
-        return response()->json($productService->delete($id));
+        return response()->json(['success' => $productService->delete($id)]);
     }
 }

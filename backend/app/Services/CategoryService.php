@@ -6,8 +6,9 @@ use App\Dto\Category\CategoryCreateDto;
 use App\Dto\Category\CategoryUpdateDto;
 use App\Exceptions\ClientException;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-final class CategoryService
+class CategoryService
 {
     /**
      * Save new category
@@ -28,15 +29,20 @@ final class CategoryService
      * Update category
      *
      * @param CategoryUpdateDto $request
+     * @throws ClientException
      * @return bool
      */
     public function update(CategoryUpdateDto $request): bool
     {
-        $category = Category::findOrFail($request->id);
+        try {
+            $category = Category::findOrFail($request->id);
 
-        $category->category = $request->category;
+            $category->category = $request->category;
 
-        return $category->save();
+            return $category->save();
+        } catch (ModelNotFoundException) {
+            throw new ClientException('Category not found', 404);
+        }
     }
 
     /**

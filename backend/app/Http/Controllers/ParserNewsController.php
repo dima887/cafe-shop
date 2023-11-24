@@ -20,16 +20,16 @@ class ParserNewsController extends Controller
      *         response="200",
      *         description="Successfully parsed and saved to the database.",
      *         @OA\JsonContent(
-     *             type="boolean",
-     *             example=true
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example="true")
      *         )
      *     ),
      *     @OA\Response(
      *         response="500",
      *         description="Failed to parse or save to the database.",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -39,7 +39,7 @@ class ParserNewsController extends Controller
      */
     public function skyParse(ParseService $parseService): JsonResponse
     {
-        return response()->json($parseService->parseNews(new SkyParserFactory(), SourceNews::Sky->value));
+        return response()->json(['success' => $parseService->parseNews(new SkyParserFactory(), SourceNews::Sky->value)]);
     }
 
     /**
@@ -51,16 +51,16 @@ class ParserNewsController extends Controller
      *         response="200",
      *         description="Successfully parsed and saved to the database.",
      *         @OA\JsonContent(
-     *             type="boolean",
-     *             example=true
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example="true")
      *         )
      *     ),
      *     @OA\Response(
      *         response="500",
      *         description="Failed to parse or save to the database.",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -70,6 +70,6 @@ class ParserNewsController extends Controller
      */
     public function bbcParse(ParseService $parseService): JsonResponse
     {
-        return response()->json($parseService->parseNews(new BBCParserFactory(), SourceNews::BBC->value));
+        return response()->json(['success' => $parseService->parseNews(new BBCParserFactory(), SourceNews::BBC->value)]);
     }
 }

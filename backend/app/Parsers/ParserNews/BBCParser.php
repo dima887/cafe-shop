@@ -19,8 +19,8 @@ class BBCParser extends Parser
     /**
      * Get parsed data as an array
      *
-     * @return array = ['thumbnail', 'header', 'content']
      * @throws InvalidSelectorException
+     * @return array = ['thumbnail', 'header', 'content']
      */
     public function parse(): array
     {
@@ -55,11 +55,17 @@ class BBCParser extends Parser
      * Get the images and add them to the posts array
      *
      * @param object $data
+     * @throws InvalidSelectorException
      * @return void
      */
     private function setImg(object $data): void
     {
         $img = $data->first('.ssrcss-evoj7m-Image')->attr('srcset');
+
+        if (empty($img)) {
+            throw new InvalidSelectorException('img value is empty when parsing');
+        }
+
         $this->posts[$this->counter]['thumbnail'] = preg_replace('#((.*\d\d\dw, )(https.*)( \d\d\dw))#', '$3', $img);
     }
 
@@ -67,24 +73,35 @@ class BBCParser extends Parser
      * Get the header and add them to the posts array
      *
      * @param object $data
+     * @throws InvalidSelectorException
      * @return void
      */
     private function setHeader(object $data): void
     {
-        $this->posts[$this->counter]['header'] = $data->text();
+        $header = $data->text();
+
+        if (empty($header)) {
+            throw new InvalidSelectorException('header value is empty when parsing');
+        }
+
+        $this->posts[$this->counter]['header'] = $header;
     }
 
     /**
      * Get the content and add them to the posts array
      *
-     * @return void
      * @throws InvalidSelectorException
+     * @return void
      */
     private function setContent(): void
     {
         $this->posts[$this->counter]['content'] = '';
 
         $contents = $this->documentPost->find('.ssrcss-11r1m41-RichTextComponentWrapper');
+
+        if (empty($contents)) {
+            throw new InvalidSelectorException('content value is empty when parsing');
+        }
 
         foreach ($contents as $content) {
             $this->posts[$this->counter]['content'] .= $content->text();

@@ -2,7 +2,12 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Review;
+use Database\Factories\AdminFactory;
+use Database\Factories\BBCFactory;
+use Database\Factories\SkyFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        AdminFactory::new()->create();
+        Category::factory(5)->create();
+        Product::factory(20)->create();
+        Review::factory(30)->create();
+        BBCFactory::new()->create();
+        SkyFactory::new()->create();
     }
 }

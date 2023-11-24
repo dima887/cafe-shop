@@ -6,10 +6,9 @@ use App\Dto\Payment\StripeCreateDto;
 use App\Enums\StatusOrder;
 use App\Facades\StripeFacade;
 use App\Models\Order;
-use Stripe\Checkout\Session;
 use Stripe\Exception\ApiErrorException;
 
-final class PaymentService
+class PaymentService
 {
     /**
      * Get payment page url from Stripe

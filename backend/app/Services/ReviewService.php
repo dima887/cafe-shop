@@ -7,7 +7,7 @@ use App\Dto\Review\ReviewUpdateDto;
 use App\Http\Repositories\ReviewRepository;
 use App\Models\Review;
 
-final class ReviewService
+class ReviewService
 {
     /**
      * Save new review

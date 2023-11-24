@@ -19,8 +19,8 @@ class SkyParser extends Parser
     /**
      * Get parsed data as an array
      *
-     * @return array = ['thumbnail', 'header', 'content']
      * @throws InvalidSelectorException
+     * @return array = ['thumbnail', 'header', 'content']
      */
     public function parse(): array
     {
@@ -51,35 +51,52 @@ class SkyParser extends Parser
      * Get the images and add them to the posts array
      *
      * @param object $data
+     * @throws InvalidSelectorException
      * @return void
      */
     private function setImg(object $data): void
     {
-        $this->posts[$this->counter]['thumbnail'] = $data->first('img')->attr('src');
+        $img = $data->first('img')->attr('src');
+
+        if (empty($img)) {
+            throw new InvalidSelectorException('img value is empty when parsing');
+        }
+
+        $this->posts[$this->counter]['thumbnail'] = $img;
     }
 
     /**
      * Get the header and add them to the posts array
      *
-     * @return void
      * @throws InvalidSelectorException
+     * @return void
      */
     private function setHeader(): void
     {
-        $this->posts[$this->counter]['header'] = $this->documentPost->first('.sdc-article-header__long-title')->text();
+        $header = $this->documentPost->first('.sdc-article-header__long-title')->text();
+
+        if (empty($header)) {
+            throw new InvalidSelectorException('header value is empty when parsing');
+        }
+
+        $this->posts[$this->counter]['header'] = $header;
     }
 
     /**
      * Get the content and add them to the posts array
      *
-     * @return void
      * @throws InvalidSelectorException
+     * @return void
      */
     private function setContent(): void
     {
         $this->posts[$this->counter]['content'] = '';
 
         $contents = $this->documentPost->find('.sdc-article-body');
+
+        if (empty($contents)) {
+            throw new InvalidSelectorException('content value is empty when parsing');
+        }
 
         foreach ($contents as $content) {
             $this->posts[$this->counter]['content'] .= $content->text();

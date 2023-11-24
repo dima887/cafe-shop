@@ -42,7 +42,11 @@ class CategoryController extends Controller
      *                     @OA\Property(property="thumbnail", type="string"),
      *                     @OA\Property(property="sold_count", type="integer"),
      *                     @OA\Property(property="category_id", type="integer"),
-     *                 )
+     *                     @OA\Property(property="created_at", type="timestamp"),
+     *                     @OA\Property(property="updated_at", type="timestamp"),
+     *                 ),
+     *                 @OA\Property(property="created_at", type="timestamp"),
+     *                 @OA\Property(property="updated_at", type="timestamp"),
      *             ),
      *         )
      *     ),
@@ -50,8 +54,8 @@ class CategoryController extends Controller
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -102,23 +106,23 @@ class CategoryController extends Controller
      *         response="404",
      *         description="Category not found",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Category not found"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Category not found")
      *         )
      *     ),
      *     @OA\Response(
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
      *
      * @param int $id
-     * @throws ClientException
      * @return JsonResponse
+     * @throws ClientException
      */
     public function show(int $id): JsonResponse
     {
@@ -141,8 +145,8 @@ class CategoryController extends Controller
      *         response="201",
      *         description="Category successfully created",
      *         @OA\JsonContent(
-     *             type="boolean",
-     *             example=true
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example="true")
      *         )
      *     ),
      *     @OA\Response(
@@ -158,8 +162,8 @@ class CategoryController extends Controller
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -170,7 +174,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryCreateRequest $request, CategoryService $categoryService): JsonResponse
     {
-        return response()->json($categoryService->create($request->getDto()), 201);
+        return response()->json(['success' => $categoryService->create($request->getDto())], 201);
     }
 
     /**
@@ -196,8 +200,8 @@ class CategoryController extends Controller
      *         response="200",
      *         description="Category successfully updated",
      *         @OA\JsonContent(
-     *             type="boolean",
-     *             example=true
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example="true")
      *         )
      *     ),
      *     @OA\Response(
@@ -205,7 +209,7 @@ class CategoryController extends Controller
      *         description="Category not found",
      *         @OA\JsonContent(
      *             type="object",
-     *             @OA\Property(property="message", type="string", example="Category not found"),
+     *             @OA\Property(property="error", type="string", example="Category not found")
      *         )
      *     ),
      *     @OA\Response(
@@ -221,8 +225,8 @@ class CategoryController extends Controller
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -230,11 +234,12 @@ class CategoryController extends Controller
      * @param CategoryUpdateRequest $request
      * @param CategoryService $categoryService
      * @param int $id
+     * @throws ClientException
      * @return JsonResponse
      */
     public function update(CategoryUpdateRequest $request, CategoryService $categoryService, int $id): JsonResponse
     {
-        return response()->json($categoryService->update($request->getDto($id)));
+        return response()->json(['success' => $categoryService->update($request->getDto($id))]);
     }
 
     /**
@@ -253,16 +258,16 @@ class CategoryController extends Controller
      *         response="200",
      *         description="Category successfully deleted",
      *         @OA\JsonContent(
-     *             type="int",
-     *             example=1
+     *             type="object",
+     *             @OA\Property(property="success", type="int", example="1")
      *         )
      *     ),
      *     @OA\Response(
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -273,6 +278,6 @@ class CategoryController extends Controller
      */
     public function delete(CategoryService $categoryService, int $id): JsonResponse
     {
-        return response()->json($categoryService->delete($id));
+        return response()->json(['success' => $categoryService->delete($id)]);
     }
 }

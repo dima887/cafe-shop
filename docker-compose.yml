@@ -75,6 +75,25 @@ services:
     networks:
       - shop-network
 
+  redis:
+    image: "redis:latest"
+    container_name: "redis"
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks:
+      - shop-network
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis-commander
+    ports:
+      - "8082:8081"
+    environment:
+      - REDIS_HOSTS=redis:6379
+    networks:
+      - shop-network
+
 #  postgres:
 #    build:
 #      context: ./postgresql

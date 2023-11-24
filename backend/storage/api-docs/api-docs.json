@@ -27,6 +27,14 @@
                                             "type": "string"
                                         },
                                         "products": {
+                                            "properties": {
+                                                "created_at": {
+                                                    "type": "timestamp"
+                                                },
+                                                "updated_at": {
+                                                    "type": "timestamp"
+                                                }
+                                            },
                                             "type": "array",
                                             "items": {
                                                 "properties": {
@@ -51,6 +59,12 @@
                                                     },
                                                     "category_id": {
                                                         "type": "integer"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "timestamp"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "timestamp"
                                                     }
                                                 },
                                                 "type": "object"
@@ -67,9 +81,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -106,9 +125,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "boolean"
-                                },
-                                "example": true
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -135,9 +159,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -216,9 +245,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Category not found"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Category not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -227,9 +261,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -278,9 +317,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "boolean"
-                                },
-                                "example": true
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -290,7 +334,7 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "error": {
                                             "type": "string",
                                             "example": "Category not found"
                                         }
@@ -323,9 +367,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -354,9 +403,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "int"
-                                },
-                                "example": 1
+                                    "properties": {
+                                        "success": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -365,9 +419,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -387,9 +446,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "boolean"
-                                },
-                                "example": true
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -398,9 +462,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -420,9 +489,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "boolean"
-                                },
-                                "example": true
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -431,9 +505,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -528,9 +607,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "https://checkout.stripe.com/c/pay/efsdfdrgrdg"
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "https://checkout.stripe.com/c/pay/efsdfdrgrdg"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -557,9 +641,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -579,9 +668,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "boolean"
-                                },
-                                "example": true
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -590,9 +684,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -690,9 +789,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -748,11 +852,9 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "description": {
-                                            "type": "string"
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
                                         }
                                     },
                                     "type": "object"
@@ -783,9 +885,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -978,9 +1085,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "boolean"
-                                },
-                                "example": true
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -990,9 +1102,9 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "error": {
                                             "type": "string",
-                                            "example": "Product not found"
+                                            "example": "Category not found"
                                         }
                                     },
                                     "type": "object"
@@ -1023,9 +1135,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -1054,9 +1171,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "int"
-                                },
-                                "example": 1
+                                    "properties": {
+                                        "success": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -1065,9 +1187,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
-                                },
-                                "example": "Oops, there are temporary problems"
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Oops, there are temporary problems"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }

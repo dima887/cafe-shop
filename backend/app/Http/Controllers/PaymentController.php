@@ -37,8 +37,8 @@ class PaymentController extends Controller
      *         response="200",
      *         description="Stripe payment page URL",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="https://checkout.stripe.com/c/pay/efsdfdrgrdg"
+     *             type="object",
+     *             @OA\Property(property="success", type="string", example="https://checkout.stripe.com/c/pay/efsdfdrgrdg")
      *         )
      *     ),
      *     @OA\Response(
@@ -54,8 +54,8 @@ class PaymentController extends Controller
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -67,7 +67,7 @@ class PaymentController extends Controller
      */
     public function index(StripeCreateRequest $request, PaymentService $paymentService): JsonResponse
     {
-        return response()->json($paymentService->payment($request->getDto()));
+        return response()->json(['success' => $paymentService->payment($request->getDto())]);
     }
 
     /**
@@ -79,16 +79,16 @@ class PaymentController extends Controller
      *         response="200",
      *         description="Successful response",
      *         @OA\JsonContent(
-     *             type="boolean",
-     *             example=true
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example="true")
      *         )
      *     ),
      *     @OA\Response(
      *         response="500",
      *         description="Oops, there are temporary problems",
      *         @OA\JsonContent(
-     *             type="string",
-     *             example="Oops, there are temporary problems"
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Oops, there are temporary problems")
      *         )
      *     ),
      * )
@@ -98,6 +98,6 @@ class PaymentController extends Controller
      */
     public function webhook(PaymentService $paymentService): JsonResponse
     {
-        return response()->json($paymentService->webhook());
+        return response()->json(['success' => $paymentService->webhook()]);
     }
 }

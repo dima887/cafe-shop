@@ -2,9 +2,12 @@
 
 namespace App\Exceptions;
 
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -25,13 +28,18 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->renderable(function (ClientException $e, Request $request) {
-            return response()->json($e->getUserMessage(), $e->getUserCode());
+        $this->renderable(function (ClientException $e) {
+            return response()->json(['error' => $e->getUserMessage()], $e->getUserCode());
         });
 
-        $this->renderable(function (\Exception $e, Request $request) {
-            //Log::error($e->getMessage(), ['trace' => $e->getTrace()]);
-            //return response()->json('Oops, there are temporary problems', 500);
+        $this->renderable(function (Exception $e) {
+            if ($e instanceof ValidationException) {
+                $errors = $e->validator->errors()->toArray();
+                return response()->json(['errors' => $errors], 422);
+            }
+
+            Log::error($e->getMessage(), ['trace' => $e->getTrace()]);
+            return response()->json(['error' => 'Oops, there are temporary problems'], 500);
         });
     }
 }

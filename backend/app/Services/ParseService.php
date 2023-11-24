@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Factories\ParserNews\ParserNewsFactory;
 use App\Models\News;
 
-final class ParseService
+class ParseService
 {
     /**
      * array for parsed news
@@ -28,7 +28,11 @@ final class ParseService
 
         $this->deleteBySourceId($source);
 
-        return News::insert($this->data);
+        foreach ($this->data as $newsData) {
+            News::create($newsData);
+        }
+
+        return true;
     }
 
     /**
