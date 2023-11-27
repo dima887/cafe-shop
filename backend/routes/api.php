@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ParserNewsController;
 use App\Http\Controllers\PaymentController;
@@ -60,6 +61,8 @@ Route::prefix('review')->group(function () {
 
     Route::get('/{id}', [ReviewController::class, 'show']);
 
+    Route::get('/product/{id}', [ReviewController::class, 'showByIdProduct']);
+
     Route::post('/', [ReviewController::class, 'store']);
 
     Route::post('/{id}', [ReviewController::class, 'update']);
@@ -80,6 +83,13 @@ Route::prefix('order')->group(function () {
     Route::post('/update-status', [OrderController::class, 'updateStatus']);
 
     Route::delete('/{id}', [OrderController::class, 'delete']);
+});
+
+Route::prefix('news')->group(function () {
+
+    Route::get('/', [NewsController::class, 'index']);
+
+    Route::get('/{id}', [NewsController::class, 'show']);
 });
 
 Route::post('/parse-news-sky', [ParserNewsController::class, 'skyParse']);

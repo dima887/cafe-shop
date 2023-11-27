@@ -1,0 +1,23 @@
+.post-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.post-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.post-details h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.post-details p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}

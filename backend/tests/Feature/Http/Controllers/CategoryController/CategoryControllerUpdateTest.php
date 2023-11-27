@@ -19,7 +19,11 @@ class CategoryControllerUpdateTest extends TestCase
 
         $this->category = Category::factory()->create();
 
-        $this->updatedCategoryData = ['category' => 'Updated Category'];
+        $this->updatedCategoryData = [
+            'category' => 'Updated Category',
+            'description' => 'Updated Description',
+            'thumbnail' => 'Updated Thumbnail',
+        ];
     }
 
     /**
@@ -77,7 +81,7 @@ class CategoryControllerUpdateTest extends TestCase
             $mock->shouldReceive('update')->andThrow(new \Exception());
         });
 
-        $response = $this->put("/api/category/{$this->category->id}", ['category' => 'Updated Category']);
+        $response = $this->put("/api/category/{$this->category->id}", $this->updatedCategoryData);
 
         $response->assertStatus(500);
 

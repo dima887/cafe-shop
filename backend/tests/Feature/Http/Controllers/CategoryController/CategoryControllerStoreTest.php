@@ -24,7 +24,11 @@ class CategoryControllerStoreTest extends TestCase
      */
     public function it_creates_category_successfully()
     {
-        $data = ['category' => $this->category->category];
+        $data = [
+            'category' => $this->category->category,
+            'description' => $this->category->description,
+            'thumbnail' => $this->category->thumbnail,
+        ];
 
         $response = $this->post('/api/category', $data);
 

@@ -1,0 +1,36 @@
+.news-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 90%;
+    margin: auto;
+}
+
+.news-post {
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.post-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.post-details {
+    padding: 10px;
+}
+
+.post-details h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.post-details p {
+    font-size: 1rem;
+    margin: 0;
+}

@@ -23,7 +23,9 @@ class CategoryCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category' => ['required', 'max:255']
+            'category' => ['required', 'max:255'],
+            'description' => ['max:1000'],
+            'thumbnail' => ['required', 'max:255'],
         ];
     }
 
@@ -33,7 +35,9 @@ class CategoryCreateRequest extends FormRequest
     public function getDto(): CategoryCreateDto
     {
         return new CategoryCreateDto(
-            $this->get('category')
+            $this->get('category'),
+            $this->get('description'),
+            $this->get('thumbnail'),
         );
     }
 }

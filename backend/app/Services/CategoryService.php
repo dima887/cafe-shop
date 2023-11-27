@@ -21,6 +21,8 @@ class CategoryService
         $category = new Category();
 
         $category->category = $request->category;
+        $category->description = $request->description;
+        $category->thumbnail = $request->thumbnail;
 
         return $category->save();
     }
@@ -38,6 +40,8 @@ class CategoryService
             $category = Category::findOrFail($request->id);
 
             $category->category = $request->category;
+            $category->description = $request->description;
+            $category->thumbnail = $request->thumbnail;
 
             return $category->save();
         } catch (ModelNotFoundException) {

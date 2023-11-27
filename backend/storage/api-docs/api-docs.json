@@ -26,6 +26,12 @@
                                         "category": {
                                             "type": "string"
                                         },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "thumbnail": {
+                                            "type": "string"
+                                        },
                                         "products": {
                                             "properties": {
                                                 "created_at": {
@@ -106,12 +112,22 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "category"
+                                    "category",
+                                    "description",
+                                    "thumbnail"
                                 ],
                                 "properties": {
                                     "category": {
                                         "type": "string",
-                                        "example": "New Category"
+                                        "example": "Updated Category"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Updated Description"
+                                    },
+                                    "thumbnail": {
+                                        "type": "string",
+                                        "example": "https://via.placeholder.com/640x480.png/00ffcc?text=non"
                                     }
                                 },
                                 "type": "object"
@@ -202,6 +218,12 @@
                                             "type": "integer"
                                         },
                                         "category": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "thumbnail": {
                                             "type": "string"
                                         },
                                         "products": {
@@ -297,13 +319,22 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "name",
-                                    "description"
+                                    "category",
+                                    "description",
+                                    "thumbnail"
                                 ],
                                 "properties": {
                                     "category": {
                                         "type": "string",
                                         "example": "Updated Category"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Updated Description"
+                                    },
+                                    "thumbnail": {
+                                        "type": "string",
+                                        "example": "https://via.placeholder.com/640x480.png/00ffcc?text=non"
                                     }
                                 },
                                 "type": "object"

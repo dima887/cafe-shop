@@ -32,6 +32,17 @@ class ReviewController extends Controller
     }
 
     /**
+     * Get review by ID product
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function showByIdProduct(int $id): JsonResponse
+    {
+        return response()->json(ReviewRepository::getReviewByIdProduct($id));
+    }
+
+    /**
      * Save new review
      *
      * @param ReviewCreateRequest $request

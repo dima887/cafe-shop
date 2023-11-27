@@ -27,10 +27,13 @@ class ReviewFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::inRandomOrder()->first();
+        $product = Product::inRandomOrder()->first();
+
         return [
             'review' => $this->faker->paragraph,
-            'user_id' => User::factory(),
-            'product_id' => Product::factory(),
+            'user_id' => $user->id,
+            'product_id' => $product->id,
         ];
     }
 }

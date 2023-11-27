@@ -23,7 +23,9 @@ class CategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category' => ['required', 'max:255']
+            'category' => ['required', 'max:255'],
+            'description' => ['max:1000'],
+            'thumbnail' => ['required', 'max:255'],
         ];
     }
 
@@ -35,7 +37,9 @@ class CategoryUpdateRequest extends FormRequest
     {
         return new CategoryUpdateDto(
             $id,
-            $this->get('category')
+            $this->get('category'),
+            $this->get('description'),
+            $this->get('thumbnail'),
         );
     }
 }

@@ -34,6 +34,8 @@ class CategoryControllerIndexTest extends TestCase
             [
                 'id',
                 'category',
+                'description',
+                'thumbnail',
                 'products' => [
                     '*' => [
                         'id',

@@ -30,6 +30,8 @@ class CategoryController extends Controller
      *             type="object",
      *             @OA\Property(property="id", type="integer"),
      *             @OA\Property(property="category", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="thumbnail", type="string"),
      *             @OA\Property(
      *                 property="products",
      *                 type="array",
@@ -86,6 +88,8 @@ class CategoryController extends Controller
      *             type="object",
      *             @OA\Property(property="id", type="integer"),
      *             @OA\Property(property="category", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="thumbnail", type="string"),
      *             @OA\Property(
      *                 property="products",
      *                 type="array",
@@ -137,8 +141,10 @@ class CategoryController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"category"},
-     *             @OA\Property(property="category", type="string", example="New Category"),
+     *             required={"category", "description", "thumbnail"},
+     *             @OA\Property(property="category", type="string", example="Updated Category"),
+     *             @OA\Property(property="description", type="string", example="Updated Description"),
+     *             @OA\Property(property="thumbnail", type="string", example="https://via.placeholder.com/640x480.png/00ffcc?text=non"),
      *         )
      *     ),
      *     @OA\Response(
@@ -192,8 +198,10 @@ class CategoryController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"name", "description"},
+     *             required={"category", "description", "thumbnail"},
      *             @OA\Property(property="category", type="string", example="Updated Category"),
+     *             @OA\Property(property="description", type="string", example="Updated Description"),
+     *             @OA\Property(property="thumbnail", type="string", example="https://via.placeholder.com/640x480.png/00ffcc?text=non"),
      *         )
      *     ),
      *     @OA\Response(

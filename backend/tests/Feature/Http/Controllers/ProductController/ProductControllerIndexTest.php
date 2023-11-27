@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
+use Database\Factories\AdminFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,6 +17,7 @@ class ProductControllerIndexTest extends TestCase
     {
         parent::setUp();
 
+        AdminFactory::new()->create();
         $this->category = Category::factory()->create();
         $this->product = Product::factory()->create(['category_id' => $this->category->id]);
         $this->reviews = Review::factory()->create(['product_id' => $this->product->id]);

@@ -34,6 +34,8 @@ class CategoryControllerShowTest extends TestCase
             [
                 'id',
                 'category',
+                'description',
+                'thumbnail',
                 'products' => [
                     '*' => [
                         'id',

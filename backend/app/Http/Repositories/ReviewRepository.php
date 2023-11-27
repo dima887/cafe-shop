@@ -26,4 +26,15 @@ class ReviewRepository
     {
         return Review::findOrFail($id);
     }
+
+    /**
+     * Get review by ID product
+     *
+     * @param int $id
+     * @return array
+     */
+    static public function getReviewByIdProduct(int $id): array
+    {
+        return Review::with(['user'])->where('product_id', $id)->get()->toArray();
+    }
 }

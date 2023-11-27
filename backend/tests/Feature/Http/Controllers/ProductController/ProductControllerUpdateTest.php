@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\Product;
+use Database\Factories\AdminFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,6 +19,7 @@ class ProductControllerUpdateTest extends TestCase
     {
         parent::setUp();
 
+        AdminFactory::new()->create();
         $this->category = Category::factory()->create();
         $this->product = Product::factory()->create(['category_id' => $this->category->id]);
 
