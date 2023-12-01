@@ -6,6 +6,7 @@ import Footer from "../components/UI/Footer";
 import http from "../axios";
 import ReviewProductSection from "../components/Section/ReviewProductSection";
 import ReviewForm from "../components/Form/ReviewForm";
+import useBasketFunctions from "../hooks/useBasketFunctions";
 
 const ProductPage = () => {
     const { id } = useParams();
@@ -13,6 +14,7 @@ const ProductPage = () => {
     const [product, setProduct] = useState([]);
     const [reviews, setReview] = useState([]);
     const [reviewForm, setReviewForm] = useState({review: ''});
+    const { setBasketInCookie } = useBasketFunctions();
 
     useEffect(() => {
         const getAllNews = () => {
@@ -80,7 +82,8 @@ const ProductPage = () => {
             <br/>
             <div className="post-page">
                 <img src={isProduct.thumbnail} alt={product.title} className="post-image" />
-                <p className="page-card-link">
+                <p onClick={() => setBasketInCookie(isProduct.id, isProduct.name, isProduct.price)}
+                   className="page-card-link pointer">
                     Add to basket
                 </p>
                 <div className="post-details">

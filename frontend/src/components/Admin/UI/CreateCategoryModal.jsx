@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../../styles/Admin/UI/CreateCategoryModal.css';
 
 const CreateCategoryModal = ({ isOpen, onClose, sendForm, categoryForm, setCategoryForm }) => {

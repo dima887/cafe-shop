@@ -1,25 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import '../styles/Page/MenuPage.css';
 import Navbar from "../components/UI/Navbar";
 import NameSection from "../components/UI/NameSection";
 import MenuList from "../components/UI/MenuList";
 import Footer from "../components/UI/Footer";
-import http from "../axios";
+import useCategoryFunctions from "../hooks/useCategoryFunctions";
+import useBasketFunctions from "../hooks/useBasketFunctions";
 
 const MenuPage = () => {
 
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        http.get('api/category')
-            .then((res) => {
-                console.log(res.data)
-                setCategories(res.data)
-            })
-            .catch((er) => {
-                console.log(er)
-            })
-    })
+    const { categories } = useCategoryFunctions();
+    const { setBasketInCookie } = useBasketFunctions();
 
     return (
         <div className="menu-page">
@@ -52,6 +43,7 @@ const MenuPage = () => {
                                     name={item.name}
                                     image={item.thumbnail}
                                     price={item.price}
+                                    setBasketInCookie={setBasketInCookie}
                                 />
                             ))}
                         </div>
