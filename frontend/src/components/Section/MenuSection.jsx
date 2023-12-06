@@ -13,7 +13,7 @@ const MenuSection = ({ categories } ) => {
                     <CategoryCard
                         key={index}
                         category={item.category}
-                        image={item.image}
+                        image={item.thumbnail}
                         description={item.description}
                     />
                 ))}

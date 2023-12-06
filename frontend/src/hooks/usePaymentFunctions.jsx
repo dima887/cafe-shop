@@ -5,7 +5,7 @@ import http from "../axios";
 
 const useBasketFunctions = () => {
 
-    const product = useSelector((state) => state)
+    const product = useSelector((state) => state.basket)
     const location = useLocation();
 
 

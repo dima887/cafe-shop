@@ -25,6 +25,22 @@ class ParserNewsController extends Controller
      *         )
      *     ),
      *     @OA\Response(
+     *         response="401",
+     *         description="Unauthenticated.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Unauthenticated.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Forbidden.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Forbidden.")
+     *         )
+     *     ),
+     *     @OA\Response(
      *         response="500",
      *         description="Failed to parse or save to the database.",
      *         @OA\JsonContent(
@@ -53,6 +69,22 @@ class ParserNewsController extends Controller
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example="true")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthenticated.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Unauthenticated.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Forbidden.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Forbidden.")
      *         )
      *     ),
      *     @OA\Response(

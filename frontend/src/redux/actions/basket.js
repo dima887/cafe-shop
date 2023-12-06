@@ -25,3 +25,12 @@ export const getTotalAmount = () => ({
 export const clearProducts = () => ({
     type: 'CLEAR_PRODUCTS',
 });
+
+export const loginUser = (user) => ({
+    type: 'LOGIN_USER',
+    payload: user,
+});
+
+export const logoutUser = () => ({
+    type: 'LOGOUT_USER',
+});

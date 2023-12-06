@@ -9,8 +9,8 @@ const CategoryList = ({ categories, deleteCategory }) => {
             {categories.map((category) => (
                 <div key={category.id} className="category-item">
                     <div className="category-info">
-                        <h3>{category.name}</h3>
-                        <p>{category.description}</p>
+                        <h3>Name: {category.category}</h3>
+                        <p>Description: {category.description}</p>
                     </div>
                     <div className="category-actions">
                         <Link key={category.id} to={"/admin/categoryId/" + category.id}>

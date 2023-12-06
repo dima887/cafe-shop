@@ -4,8 +4,10 @@ namespace Http\Controllers\PaymentController;
 
 use App\Http\Controllers\PaymentController;
 use App\Http\Requests\Payment\StripeCreateRequest;
+use App\Models\User;
 use App\Services\PaymentService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class PaymentControllerIndexTest extends TestCase
@@ -36,6 +38,10 @@ class PaymentControllerIndexTest extends TestCase
      */
     public function it_returns_stripe_payment_page_url_on_success()
     {
+        $user = User::factory()->create();
+        $user->createToken('test-token')->plainTextToken;
+        Sanctum::actingAs($user, ['*']);
+
         $response = $this->postJson('/api/payment', $this->requestData);
 
         $response->assertStatus(200);
@@ -49,8 +55,25 @@ class PaymentControllerIndexTest extends TestCase
      * @test
      * @covers \App\Http\Controllers\PaymentController::index
      */
+    public function it_returns_401_if_user_unauthenticated()
+    {
+        $response = $this->postJson('/api/payment', $this->requestData);
+
+        $response->assertStatus(401);
+
+        $response->assertJson(['error' => 'Unauthenticated.']);
+    }
+
+    /**
+     * @test
+     * @covers \App\Http\Controllers\PaymentController::index
+     */
     public function it_returns_validation_error_on_invalid_request_data()
     {
+        $user = User::factory()->create();
+        $user->createToken('test-token')->plainTextToken;
+        Sanctum::actingAs($user, ['*']);
+
         $response = $this->postJson('/api/payment', []);
 
         $response->assertStatus(422);

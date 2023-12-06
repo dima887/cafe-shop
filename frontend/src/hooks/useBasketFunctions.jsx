@@ -7,11 +7,11 @@ import {
     decrementProductQuantity,
     getTotalAmount,
     incrementProductQuantity, setProducts,
-} from "../actions";
+} from "../redux/actions/basket";
 
 const useBasketFunctions = () => {
 
-    const product = useSelector((state) => state)
+    const product = useSelector((state) => state.basket)
     const {id, name, price, quantity} = product.product;
     const dispatch = useDispatch();
     const totalAmount = useSelector((state) => state.totalAmount);

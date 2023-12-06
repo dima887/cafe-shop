@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/UI/Navbar.css';
+import useAuthFunctions from "../../../hooks/useAuthFunctions";
+import {useSelector} from "react-redux";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { getAuthUser } = useAuthFunctions();
+    const user = useSelector((state) => state.user);
+
+    useEffect(() => {
+        getAuthUser();
+    })
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -34,6 +42,13 @@ const Navbar = () => {
                             News
                         </Link>
                     </li>
+                    {!user.user ? '' : (
+                        <li className="nav-item">
+                            <span className="nav-links pointer">
+                                {user.user.name}
+                            </span>
+                        </li>
+                    )}
                 </ul>
             </div>
         </nav>

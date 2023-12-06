@@ -4,7 +4,10 @@ namespace Tests\Feature\Http\Controllers\CategoryController;
 
 use App\Http\Controllers\CategoryController;
 use App\Models\Category;
+use App\Models\User;
+use Database\Factories\AdminFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class CategoryControllerStoreTest extends TestCase
@@ -16,6 +19,11 @@ class CategoryControllerStoreTest extends TestCase
         parent::setUp();
 
         $this->category = Category::factory()->create();
+        $this->data = [
+            'category' => $this->category->category,
+            'description' => $this->category->description,
+            'thumbnail' => $this->category->thumbnail,
+        ];
     }
 
     /**
@@ -24,19 +32,47 @@ class CategoryControllerStoreTest extends TestCase
      */
     public function it_creates_category_successfully()
     {
-        $data = [
-            'category' => $this->category->category,
-            'description' => $this->category->description,
-            'thumbnail' => $this->category->thumbnail,
-        ];
+        $user = AdminFactory::new()->create();
+        $user->createToken('test-token')->plainTextToken;
+        Sanctum::actingAs($user, ['*']);
 
-        $response = $this->post('/api/category', $data);
+        $response = $this->postJson('/api/category', $this->data);
 
         $response->assertStatus(201);
 
         $response->assertJson(['success' => true]);
 
-        $this->assertDatabaseHas('categories', $data);
+        $this->assertDatabaseHas('categories', $this->data);
+    }
+
+    /**
+     * @test
+     * @covers \App\Http\Controllers\CategoryController::store
+     */
+    public function it_returns_401_if_user_unauthenticated()
+    {
+        $response = $this->postJson('/api/category', $this->data);
+
+        $response->assertStatus(401);
+
+        $response->assertJson(['error' => 'Unauthenticated.']);
+    }
+
+    /**
+     * @test
+     * @covers \App\Http\Controllers\CategoryController::store
+     */
+    public function it_returns_403_if_forbidden()
+    {
+        $user = User::factory()->create();
+        $user->createToken('test-token')->plainTextToken;
+        Sanctum::actingAs($user, ['*']);
+
+        $response = $this->postJson('/api/category', $this->data);
+
+        $response->assertStatus(403);
+
+        $response->assertJson(['error' => 'Forbidden.']);
     }
 
     /**
@@ -45,6 +81,10 @@ class CategoryControllerStoreTest extends TestCase
      */
     public function it_returns_validation_error()
     {
+        $user = AdminFactory::new()->create();
+        $user->createToken('test-token')->plainTextToken;
+        Sanctum::actingAs($user, ['*']);
+
         $response = $this->post('/api/category', []);
 
         $response->assertStatus(422);
@@ -66,7 +106,7 @@ class CategoryControllerStoreTest extends TestCase
             $mock->shouldReceive('create')->andThrow(new \Exception());
         });
 
-        $response = $this->post('/api/category', ['category' => $this->category->category]);
+        $response = $this->postJson('/api/category', ['category' => $this->category->category]);
 
         $response->assertStatus(500);
 

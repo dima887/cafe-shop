@@ -5,8 +5,10 @@ namespace Tests\Feature\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Database\Factories\AdminFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class ProductControllerUpdateTest extends TestCase
@@ -19,7 +21,6 @@ class ProductControllerUpdateTest extends TestCase
     {
         parent::setUp();
 
-        AdminFactory::new()->create();
         $this->category = Category::factory()->create();
         $this->product = Product::factory()->create(['category_id' => $this->category->id]);
 
@@ -39,7 +40,11 @@ class ProductControllerUpdateTest extends TestCase
      */
     public function it_updates_product_successfully()
     {
-        $response = $this->put("/api/product/{$this->product->id}", $this->updatedProductData);
+        $user = AdminFactory::new()->create();
+        $user->createToken('test-token')->plainTextToken;
+        Sanctum::actingAs($user, ['*']);
+
+        $response = $this->putJson("/api/product/{$this->product->id}", $this->updatedProductData);
 
         $response->assertStatus(200);
 
@@ -52,9 +57,43 @@ class ProductControllerUpdateTest extends TestCase
      * @test
      * @covers \App\Http\Controllers\ProductController::update
      */
+    public function it_returns_401_if_user_unauthenticated()
+    {
+        $response = $this->putJson("/api/product/{$this->product->id}", $this->updatedProductData);
+
+        $response->assertStatus(401);
+
+        $response->assertJson(['error' => 'Unauthenticated.']);
+    }
+
+    /**
+     * @test
+     * @covers \App\Http\Controllers\ProductController::update
+     */
+    public function it_returns_403_if_forbidden()
+    {
+        $user = User::factory()->create();
+        $user->createToken('test-token')->plainTextToken;
+        Sanctum::actingAs($user, ['*']);
+
+        $response = $this->putJson("/api/product/{$this->product->id}", $this->updatedProductData);
+
+        $response->assertStatus(403);
+
+        $response->assertJson(['error' => 'Forbidden.']);
+    }
+
+    /**
+     * @test
+     * @covers \App\Http\Controllers\ProductController::update
+     */
     public function it_handles_product_not_found()
     {
-        $response = $this->put('/api/product/999', $this->updatedProductData);
+        $user = AdminFactory::new()->create();
+        $user->createToken('test-token')->plainTextToken;
+        Sanctum::actingAs($user, ['*']);
+
+        $response = $this->putJson('/api/product/999', $this->updatedProductData);
 
         $response->assertStatus(404);
 
@@ -69,7 +108,11 @@ class ProductControllerUpdateTest extends TestCase
      */
     public function it_handles_validation_error()
     {
-        $response = $this->put("/api/product/{$this->product->id}", []);
+        $user = AdminFactory::new()->create();
+        $user->createToken('test-token')->plainTextToken;
+        Sanctum::actingAs($user, ['*']);
+
+        $response = $this->putJson("/api/product/{$this->product->id}", []);
 
         $response->assertStatus(422);
 
@@ -90,7 +133,7 @@ class ProductControllerUpdateTest extends TestCase
             $mock->shouldReceive('update')->withAnyArgs()->andThrow(new \Exception('Oops, there are temporary problems'));
         });
 
-        $response = $this->put("/api/product/{$this->product->id}", []);
+        $response = $this->putJson("/api/product/{$this->product->id}", []);
 
         $response->assertStatus(500);
 

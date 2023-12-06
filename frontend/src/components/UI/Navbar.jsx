@@ -4,6 +4,9 @@ import '../../styles/UI/Navbar.css';
 import Basket from "./Basket";
 import ModalPaymentCancel from "./ModalPaymentCancel";
 import ModalPaymentSuccess from "./ModalPaymentSuccess";
+import http from "../../axios";
+import {useDispatch, useSelector} from "react-redux";
+import {logoutUser} from "../../redux/actions/user";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -12,6 +15,8 @@ const Navbar = () => {
     const [successPaymentModal, setSuccessPaymentModal] = useState(false);
     const location = useLocation();
     const history = useHistory();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
 
     useEffect(() => {
         if (location.search === '?payment=false') {
@@ -21,13 +26,24 @@ const Navbar = () => {
         if (location.search === '?payment=true') {
             setSuccessPaymentModal(true)
         }
-    }, [location.search])
+
+    }, [location.search]);
+
+    const handleLogout = () => {
+        http.post('api/logout')
+            .then((res) => {
+                dispatch(logoutUser());
+            })
+            .catch((err) => {
+                console.error('Logout failed', err);
+            });
+    };
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
 
-    const isOpen = () => {
+    const isOpenBasket = () => {
         setIsBasketModel(!isBasketModel);
     };
 
@@ -72,19 +88,55 @@ const Navbar = () => {
                                 About
                             </Link>
                         </li>
-
                         <li className="nav-item">
-                        <span onClick={isOpen} className="nav-links pointer">
-                            Basket
-                        </span>
+                            <span onClick={isOpenBasket} className="nav-links pointer">
+                                Basket
+                            </span>
                         </li>
+
+                        {user.user ? '' : (
+                            <li className="nav-item">
+                                <Link to="/login" className="nav-links">
+                                    Login
+                                </Link>
+                            </li>
+                        )}
+                        {user.user ? '' : (
+                            <li className="nav-item">
+                                <Link to="/register" className="nav-links">
+                                    Register
+                                </Link>
+                            </li>
+                        )}
+                        {!user.user ? '' : (
+                            <li className="nav-item">
+                                <span className="nav-links pointer">
+                                    {user.user.name}
+                                </span>
+                            </li>
+                        )}
+                        {(!user.user || 'admin' !== user.user.role) ? '' : (
+                            <li className="nav-item">
+                                <Link to="/admin/category" className="nav-links">
+                                    Admin Panel
+                                </Link>
+                            </li>
+                        )}
+                        {!user.user ? '' : (
+                            <li className="nav-item">
+                                <span onClick={handleLogout} className="nav-links pointer">
+                                    Logout
+                                </span>
+                            </li>
+                        )}
+
                     </ul>
                 </div>
             </nav>
 
             <Basket
                 isOpen={isBasketModel}
-                onClose={isOpen}
+                onClose={isOpenBasket}
             />
 
             <ModalPaymentCancel

@@ -42,6 +42,14 @@ class PaymentController extends Controller
      *         )
      *     ),
      *     @OA\Response(
+     *         response="401",
+     *         description="Unauthenticated.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Unauthenticated.")
+     *         )
+     *     ),
+     *     @OA\Response(
      *         response="422",
      *         description="Validation error",
      *         @OA\JsonContent(

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrderController;
@@ -31,14 +32,12 @@ Route::prefix('category')->group(function () {
 
     Route::get('/{id}', [CategoryController::class, 'show']);
 
-    Route::post('/', [CategoryController::class, 'store']);
+    Route::post('/', [CategoryController::class, 'store'])->middleware(['auth:sanctum', 'admin']);
 
-    Route::put('/{id}', [CategoryController::class, 'update']);
+    Route::put('/{id}', [CategoryController::class, 'update'])->middleware(['auth:sanctum', 'admin']);
 
-    Route::delete('/{id}', [CategoryController::class, 'delete']);
+    Route::delete('/{id}', [CategoryController::class, 'delete'])->middleware(['auth:sanctum', 'admin']);
 });
-
-
 
 
 Route::prefix('product')->group(function () {
@@ -47,11 +46,11 @@ Route::prefix('product')->group(function () {
 
     Route::get('/{id}', [ProductController::class, 'show']);
 
-    Route::post('/', [ProductController::class, 'store']);
+    Route::post('/', [ProductController::class, 'store'])->middleware(['auth:sanctum', 'admin']);
 
-    Route::put('/{id}', [ProductController::class, 'update']);
+    Route::put('/{id}', [ProductController::class, 'update'])->middleware(['auth:sanctum', 'admin']);
 
-    Route::delete('/{id}', [ProductController::class, 'delete']);
+    Route::delete('/{id}', [ProductController::class, 'delete'])->middleware(['auth:sanctum', 'admin']);
 });
 
 
@@ -63,11 +62,11 @@ Route::prefix('review')->group(function () {
 
     Route::get('/product/{id}', [ReviewController::class, 'showByIdProduct']);
 
-    Route::post('/', [ReviewController::class, 'store']);
+    Route::post('/', [ReviewController::class, 'store'])->middleware('auth:sanctum');
 
-    Route::post('/{id}', [ReviewController::class, 'update']);
+    Route::put('/{id}', [ReviewController::class, 'update'])->middleware('auth:sanctum');
 
-    Route::delete('/{id}', [ReviewController::class, 'delete']);
+    Route::delete('/{id}', [ReviewController::class, 'delete'])->middleware('auth:sanctum');
 });
 
 Route::prefix('order')->group(function () {
@@ -92,8 +91,16 @@ Route::prefix('news')->group(function () {
     Route::get('/{id}', [NewsController::class, 'show']);
 });
 
-Route::post('/parse-news-sky', [ParserNewsController::class, 'skyParse']);
-Route::post('/parse-news-bbc', [ParserNewsController::class, 'bbcParse']);
+Route::post('/parse-news-sky', [ParserNewsController::class, 'skyParse'])->middleware(['auth:sanctum', 'admin']);
+Route::post('/parse-news-bbc', [ParserNewsController::class, 'bbcParse'])->middleware(['auth:sanctum', 'admin']);
 
-Route::post('/payment', [PaymentController::class, 'index']);
+Route::post('/payment', [PaymentController::class, 'index'])->middleware('auth:sanctum');
 Route::post('/payment/webhook', [PaymentController::class, 'webhook']);
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/auth-user', [AuthController::class, 'getAuthUser']);
+});

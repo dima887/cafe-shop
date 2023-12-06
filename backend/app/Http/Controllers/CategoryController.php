@@ -156,6 +156,22 @@ class CategoryController extends Controller
      *         )
      *     ),
      *     @OA\Response(
+     *         response="401",
+     *         description="Unauthenticated.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Unauthenticated.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Forbidden.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Forbidden.")
+     *         )
+     *     ),
+     *     @OA\Response(
      *         response="422",
      *         description="Validation error",
      *         @OA\JsonContent(
@@ -210,6 +226,22 @@ class CategoryController extends Controller
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example="true")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthenticated.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Unauthenticated.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Forbidden.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Forbidden.")
      *         )
      *     ),
      *     @OA\Response(
@@ -268,6 +300,22 @@ class CategoryController extends Controller
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="int", example="1")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthenticated.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Unauthenticated.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Forbidden.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Forbidden.")
      *         )
      *     ),
      *     @OA\Response(

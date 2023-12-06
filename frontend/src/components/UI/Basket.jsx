@@ -6,7 +6,7 @@ import usePaymentFunctions from "../../hooks/usePaymentFunctions";
 
 const Basket = ({isOpen, onClose}) => {
 
-    const { id, name, price, quantity, totalAmount, handleIncrementQuantity, handleDecrementQuantity, clearBasket} = useBasketFunctions();
+    const { id, name, price, quantity, totalAmount, handleIncrementQuantity, handleDecrementQuantity, clearBasket } = useBasketFunctions();
     const { payment } = usePaymentFunctions();
 
     return (

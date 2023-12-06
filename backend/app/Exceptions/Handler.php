@@ -3,11 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -36,6 +36,9 @@ class Handler extends ExceptionHandler
             if ($e instanceof ValidationException) {
                 $errors = $e->validator->errors()->toArray();
                 return response()->json(['errors' => $errors], 422);
+            }
+            if ($e instanceof AuthenticationException) {
+                return response()->json(['error' => 'Unauthenticated.'], 401);
             }
 
             Log::error($e->getMessage(), ['trace' => $e->getTrace()]);

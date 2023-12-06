@@ -8,21 +8,12 @@ import http from "../axios";
 const HomePage = () => {
 
     const [categories, setCategories] = useState([]);
-    const images = [
-        "image/Hot-drinks.jpg",
-        "image/Breakfast.jpg",
-        "image/Bakery-Treats.jpg",
-    ];
 
     useEffect(() => {
         const getAllCategory = () => {
             http.get('api/category')
                 .then((res) => {
-                    const categoriesWithImages = res.data.map((category, index) => ({
-                        ...category,
-                        image: images[index],
-                    }));
-                    setCategories(categoriesWithImages);
+                    setCategories(res.data);
                 })
                 .catch((er) => {
                     console.log(er);
