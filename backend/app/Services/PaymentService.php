@@ -36,17 +36,20 @@ class PaymentService
             switch ($event->type) {
                 case 'checkout.session.completed':
 
-                    //todo ++sold_count
                     $data = $event->data->object->metadata;
                     $data->product_id = explode(', ', $data->product_id);
+                    $data->quantity = explode(', ', $data->quantity);
 
-                    foreach ($data->product_id as $value) {
+                    foreach ($data->product_id as $key => $value) {
                         $order = new Order();
                         $order->product_id = $value;
+                        $order->quantity = $data->quantity[$key];
                         $order->user_id = $data->user_id;
                         $order->type_order_id = $data->type_order_id;
                         $order->status_order_id = StatusOrder::Paid->value;
                         if (!$order->save()) return false;
+
+                        ProductService::incrementSoldCount($value, $data->quantity[$key]);
                     }
                     break;
                 default:

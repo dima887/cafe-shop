@@ -12,7 +12,11 @@ import AdminCategoryIdPage from "../pages/Admin/AdminCategoryIdPage";
 import AdminCategoryEditPage from "../pages/Admin/AdminCategoryEditPage";
 import RegisterPage from "../pages/RegisterPage";
 import AdminRoute from "./AdminRoute";
-const Routes = ({ isAdmin } ) => {
+import OrderPage from "../pages/Admin/OrderPage";
+import UserProfile from "../pages/User/UserProfilePage";
+import UserOrderPage from "../pages/User/UserOrderPage";
+import UserRoute from "./UserRoute";
+const Routes = ({ isUser, isAdmin } ) => {
 
     return (
         <Router>
@@ -26,9 +30,13 @@ const Routes = ({ isAdmin } ) => {
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
 
+                <UserRoute path="/user/profile" component={UserProfile} isUser={isUser} />
+                <UserRoute path="/user/order" component={UserOrderPage} isUser={isUser}/>
+
                 <AdminRoute path="/admin/category" component={AdminHomePage} isAdmin={isAdmin}/>
                 <AdminRoute path="/admin/categoryId/:id" component={AdminCategoryIdPage} isAdmin={isAdmin} />
-                <Route path="/admin/categoryEdit/:id" component={AdminCategoryEditPage} isAdmin={isAdmin} />
+                <AdminRoute path="/admin/categoryEdit/:id" component={AdminCategoryEditPage} isAdmin={isAdmin} />
+                <AdminRoute path="/admin/order" component={OrderPage} isAdmin={isAdmin} />
             </Switch>
         </Router>
     );

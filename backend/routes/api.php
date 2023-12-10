@@ -75,6 +75,8 @@ Route::prefix('order')->group(function () {
 
     Route::get('/{id}', [OrderController::class, 'show']);
 
+    Route::get('/user/{id}', [OrderController::class, 'showByUserId'])->middleware('auth:sanctum');
+
     Route::get('in-progress', [OrderController::class, 'showInProgress']);
 
     Route::post('/', [OrderController::class, 'store']);

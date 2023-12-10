@@ -9,6 +9,8 @@ import http from "./axios";
 function App() {
     const [ isAdmin, setIsAdmin ] = useState(false);
 
+    const [ isUser, setIsUser ] = useState(false);
+
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
@@ -24,14 +26,15 @@ function App() {
 
     useEffect(() => {
         if (user.user !== null) {
+            setIsUser(true);
             if (user.user.role === 'admin') {
-                setIsAdmin(true)
+                setIsAdmin(true);
             }
         }
     }, [user.user])
   return (
     <div className="App">
-         <Routes isAdmin={isAdmin}/>
+         <Routes isUser={isUser} isAdmin={isAdmin}/>
     </div>
   );
 }

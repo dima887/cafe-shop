@@ -10,7 +10,7 @@ import {logoutUser} from "../../redux/actions/user";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [isBasketModel, setIsBasketModel] = useState(false);
+    const [isBasketModal, setIsBasketModal] = useState(false);
     const [cancelPaymentModal, setCancelPaymentModal] = useState(false);
     const [successPaymentModal, setSuccessPaymentModal] = useState(false);
     const location = useLocation();
@@ -44,7 +44,7 @@ const Navbar = () => {
     };
 
     const isOpenBasket = () => {
-        setIsBasketModel(!isBasketModel);
+        setIsBasketModal(!isBasketModal);
     };
 
     const CloseCancelPaymentModal = () => {
@@ -110,9 +110,9 @@ const Navbar = () => {
                         )}
                         {!user.user ? '' : (
                             <li className="nav-item">
-                                <span className="nav-links pointer">
+                                <Link to="/user/profile" className="nav-links pointer">
                                     {user.user.name}
-                                </span>
+                                </Link>
                             </li>
                         )}
                         {(!user.user || 'admin' !== user.user.role) ? '' : (
@@ -135,7 +135,7 @@ const Navbar = () => {
             </nav>
 
             <Basket
-                isOpen={isBasketModel}
+                isOpen={isBasketModal}
                 onClose={isOpenBasket}
             />
 

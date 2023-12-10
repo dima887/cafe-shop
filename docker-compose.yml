@@ -94,6 +94,19 @@ services:
     networks:
       - shop-network
 
+  websocket:
+    build:
+      context: ./websocket
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: websocket
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backend
+    networks:
+      - shop-network
+
 #  postgres:
 #    build:
 #      context: ./postgresql

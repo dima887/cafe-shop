@@ -23,7 +23,7 @@ const useBasketFunctions = () => {
     const setBasketFromCookie = () => {
         const basketJson = Cookies.get('basket')
         const productsFromCookies = basketJson ? JSON.parse(basketJson) : {};
-        //todo 15 => userId
+
         if (productsFromCookies[15]) {
             dispatch(setProducts(productsFromCookies[15]));
         }
@@ -37,7 +37,6 @@ const useBasketFunctions = () => {
         const existingBasket = existingData ? JSON.parse(existingData) : {};
 
         const newData = {
-            user_id: 15,
             type_order_id: 1,
             product: {
                 id: [id],
@@ -47,7 +46,7 @@ const useBasketFunctions = () => {
             },
         };
 
-        const objectId = `${newData.user_id}`;
+        const objectId = `${15}`;
 
         const existingObject = existingBasket[objectId];
 
@@ -85,7 +84,6 @@ const useBasketFunctions = () => {
         dispatch(incrementProductQuantity(productId));
 
         const productsFromCookies = JSON.parse(Cookies.get('basket'));
-        //todo userId
         const productIndex = productsFromCookies[15].product.id.indexOf(productId);
 
         if (productIndex !== -1) {
@@ -110,7 +108,6 @@ const useBasketFunctions = () => {
     const handleDecrementQuantity = (productId) => {
         dispatch(decrementProductQuantity(productId));
 
-        //todo userId
         const productsFromCookies = JSON.parse(Cookies.get('basket'));
         const productDecrementIndex = productsFromCookies[15].product.id.indexOf(productId);
 

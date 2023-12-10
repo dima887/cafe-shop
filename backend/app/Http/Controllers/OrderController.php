@@ -32,6 +32,17 @@ class OrderController extends Controller
     }
 
     /**
+     * Get a list of all orders by user ID
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function showByUserId(int $id): JsonResponse
+    {
+        return response()->json(OrderRepository::getOrderByUserId($id));
+    }
+
+    /**
      * Get orders in progress
      *
      * @return JsonResponse

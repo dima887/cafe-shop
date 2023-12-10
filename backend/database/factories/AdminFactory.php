@@ -35,6 +35,7 @@ class AdminFactory extends Factory
         }
 
         return [
+            'id' => 1,
             'name' => 'admin',
             'email' => 'admin@mail.com',
             'email_verified_at' => now(),

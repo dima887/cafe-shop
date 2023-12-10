@@ -145,6 +145,7 @@ class StripeFacade
             'user_id' => $this->user_id,
             'product_id' => implode(', ', $this->products['id']),
             'type_order_id' => $this->type_order_id,
+            'quantity' => implode(', ', $this->products['quantity']),
         ];
     }
 

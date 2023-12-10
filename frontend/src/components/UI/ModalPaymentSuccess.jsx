@@ -1,13 +1,17 @@
 import React from 'react';
 import '../../styles/UI/ModalPaymentSuccess.css';
 import useBasketFunctions from "../../hooks/useBasketFunctions";
+import useSocketFunctions from "../../hooks/useSocketFunctions";
 
 const ModalPaymentSuccess = ({ isOpen, onClose }) => {
 
     const { clearBasket } = useBasketFunctions();
+    const { sendMessageToWebSocket } = useSocketFunctions();
+
 
     if (isOpen === true) {
         clearBasket();
+        sendMessageToWebSocket('NewOrder');
     }
 
     return (

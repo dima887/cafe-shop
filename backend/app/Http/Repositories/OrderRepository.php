@@ -31,6 +31,20 @@ class OrderRepository
     }
 
     /**
+     * Get a list of all orders by user ID
+     *
+     * @param int $id
+     * @return array
+     */
+    static public function getOrderByUserId(int $id): array
+    {
+        return Order::with(['product', 'type_order', 'user', 'status_order'])
+            ->where('user_id', $id)
+            ->get()
+            ->toArray();
+    }
+
+    /**
      * Show orders in progress.
      * except closed orders
      *

@@ -64,4 +64,16 @@ class ProductService
     {
         return Product::destroy($id);
     }
+
+    /**
+     * Update quantity of products sold, by product ID
+     *
+     * @param $id
+     * @param $quantity
+     * @return mixed
+     */
+    public static function incrementSoldCount($id, $quantity): mixed
+    {
+        return Product::where('id', $id)->increment('sold_count', $quantity);
+    }
 }

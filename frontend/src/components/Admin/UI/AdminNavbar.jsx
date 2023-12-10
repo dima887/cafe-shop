@@ -42,6 +42,11 @@ const Navbar = () => {
                             News
                         </Link>
                     </li>
+                    <li className="nav-item">
+                        <Link to="/admin/order" className="nav-links">
+                            Order
+                        </Link>
+                    </li>
                     {!user.user ? '' : (
                         <li className="nav-item">
                             <span className="nav-links pointer">
