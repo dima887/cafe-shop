@@ -7,6 +7,8 @@ use App\Dto\Category\CategoryUpdateDto;
 use App\Exceptions\ClientException;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Cache;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class CategoryService
 {
@@ -15,6 +17,7 @@ class CategoryService
      *
      * @param CategoryCreateDto $request
      * @return bool
+     * @throws InvalidArgumentException
      */
     public function create(CategoryCreateDto $request): bool
     {
@@ -24,6 +27,9 @@ class CategoryService
         $category->description = $request->description;
         $category->thumbnail = $request->thumbnail;
 
+        $key = 'cached_category';
+        Cache::store('redis')->delete($key);
+
         return $category->save();
     }
 
@@ -31,8 +37,8 @@ class CategoryService
      * Update category
      *
      * @param CategoryUpdateDto $request
-     * @throws ClientException
      * @return bool
+     * @throws ClientException|InvalidArgumentException
      */
     public function update(CategoryUpdateDto $request): bool
     {
@@ -42,6 +48,11 @@ class CategoryService
             $category->category = $request->category;
             $category->description = $request->description;
             $category->thumbnail = $request->thumbnail;
+
+            $key = 'cached_category';
+            Cache::store('redis')->delete($key);
+            $keyId = 'cached_category_id_' . $request->id;
+            Cache::store('redis')->delete($keyId);
 
             return $category->save();
         } catch (ModelNotFoundException) {

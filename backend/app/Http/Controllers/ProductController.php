@@ -8,6 +8,7 @@ use App\Http\Requests\Product\ProductCreateRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class ProductController extends Controller
 {
@@ -66,10 +67,11 @@ class ProductController extends Controller
      * )
      *
      * @return JsonResponse
+     * @throws InvalidArgumentException
      */
     public function index(): JsonResponse
     {
-        return response()->json(ProductRepository::getAllProduct());
+        return response()->json(ProductRepository::getAllProductFromCache());
     }
 
     /**
@@ -142,12 +144,12 @@ class ProductController extends Controller
      * )
      *
      * @param int $id
-     * @throws ClientException
      * @return JsonResponse
+     * @throws ClientException|InvalidArgumentException
      */
     public function show(int $id): JsonResponse
     {
-        return response()->json(ProductRepository::getProductById($id));
+        return response()->json(ProductRepository::getProductByIdFromCache($id));
     }
 
     /**
@@ -212,6 +214,7 @@ class ProductController extends Controller
      * @param ProductCreateRequest $request
      * @param ProductService $productService
      * @return JsonResponse
+     * @throws InvalidArgumentException
      */
     public function store(ProductCreateRequest $request, ProductService $productService): JsonResponse
     {
@@ -295,8 +298,8 @@ class ProductController extends Controller
      * @param ProductUpdateRequest $request
      * @param ProductService $productService
      * @param int $id
-     * @throws ClientException
      * @return JsonResponse
+     * @throws ClientException|InvalidArgumentException
      */
     public function update(ProductUpdateRequest $request, ProductService $productService, int $id): JsonResponse
     {

@@ -8,6 +8,7 @@ use App\Http\Requests\Category\CategoryCreateRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Services\CategoryService;
 use Illuminate\Http\JsonResponse;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * @OA\Info(
@@ -63,10 +64,11 @@ class CategoryController extends Controller
      * )
      *
      * @return JsonResponse
+     * @throws InvalidArgumentException
      */
     public function index(): JsonResponse
     {
-        return response()->json(CategoryRepository::getAllCategory());
+        return response()->json(CategoryRepository::getAllCategoryFromCache());
     }
 
     /**
@@ -126,11 +128,11 @@ class CategoryController extends Controller
      *
      * @param int $id
      * @return JsonResponse
-     * @throws ClientException
+     * @throws ClientException|InvalidArgumentException
      */
     public function show(int $id): JsonResponse
     {
-        return response()->json(CategoryRepository::getCategoryById($id));
+        return response()->json(CategoryRepository::getCategoryByIdFromCache($id));
     }
 
     /**
@@ -193,6 +195,7 @@ class CategoryController extends Controller
      * @param CategoryCreateRequest $request
      * @param CategoryService $categoryService
      * @return JsonResponse
+     * @throws InvalidArgumentException
      */
     public function store(CategoryCreateRequest $request, CategoryService $categoryService): JsonResponse
     {
@@ -274,8 +277,8 @@ class CategoryController extends Controller
      * @param CategoryUpdateRequest $request
      * @param CategoryService $categoryService
      * @param int $id
-     * @throws ClientException
      * @return JsonResponse
+     * @throws ClientException|InvalidArgumentException
      */
     public function update(CategoryUpdateRequest $request, CategoryService $categoryService, int $id): JsonResponse
     {

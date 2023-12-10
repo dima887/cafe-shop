@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import '../styles/Page/PostPage.css';
 import Navbar from "../components/UI/Navbar";
 import Footer from "../components/UI/Footer";
@@ -7,6 +7,7 @@ import http from "../axios";
 import ReviewProductSection from "../components/Section/ReviewProductSection";
 import ReviewForm from "../components/Form/ReviewForm";
 import useBasketFunctions from "../hooks/useBasketFunctions";
+import {useSelector} from "react-redux";
 
 const ProductPage = () => {
     const { id } = useParams();
@@ -15,6 +16,7 @@ const ProductPage = () => {
     const [reviews, setReview] = useState([]);
     const [reviewForm, setReviewForm] = useState({review: ''});
     const { setBasketInCookie } = useBasketFunctions();
+    const user = useSelector((state) => state.user);
 
     useEffect(() => {
         const getAllNews = () => {
@@ -55,14 +57,14 @@ const ProductPage = () => {
     const storeReview = () => {
         http.post('api/review', {
             review: reviewForm.review,
-            user_id: 15,
+            user_id: user.user.id,
             product_id: id
         })
             .then((res) => {
                 let time = new Date();
                 addReview({
                     product_id: id,
-                    user: { name: 'admin' },
+                    user: { name: user.user.name },
                     review: reviewForm.review,
                     updated_at: time.toISOString()
                 });
@@ -95,11 +97,19 @@ const ProductPage = () => {
 
             <ReviewProductSection reviews={reviews} />
 
-            <ReviewForm
-                sendForm={storeReview}
-                reviewForm={reviewForm}
-                setReviewForm={setReviewForm}
-            />
+            {(!user.user) ?
+                <div className="no-login-container">
+                    <span className="no-login-text">
+                        <Link to="/login"><span className="no-login-toLogin">Login</span></Link> to your account to leave a review
+                    </span>
+                </div>
+            :
+                <ReviewForm
+                    sendForm={storeReview}
+                    reviewForm={reviewForm}
+                    setReviewForm={setReviewForm}
+                />
+            }
 
             <Footer/>
         </div>

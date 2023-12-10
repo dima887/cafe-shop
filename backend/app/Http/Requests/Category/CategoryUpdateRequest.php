@@ -24,7 +24,7 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'category' => ['required', 'max:255'],
-            'description' => ['max:1000'],
+            'description' => ['required', 'max:1000'],
             'thumbnail' => ['required', 'max:255'],
         ];
     }

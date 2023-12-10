@@ -21,3 +21,19 @@
     font-size: 1.2rem;
     line-height: 1.6;
 }
+.no-login-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.no-login-text {
+    background-color: #acbcf8;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.no-login-toLogin {
+    color: #ad1800;
+    font-size: 1.2em;
+    font-weight: bold;
+}

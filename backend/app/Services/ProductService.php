@@ -8,6 +8,8 @@ use App\Exceptions\ClientException;
 use App\Http\Repositories\ProductRepository;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Cache;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class ProductService
 {
@@ -16,6 +18,7 @@ class ProductService
      *
      * @param ProductCreateDto $request
      * @return bool
+     * @throws InvalidArgumentException
      */
     public function create(ProductCreateDto $request): bool
     {
@@ -27,6 +30,9 @@ class ProductService
         $product->thumbnail = $request->thumbnail;
         $product->category_id = $request->category_id;
 
+        $key = 'cached_product';
+        Cache::store('redis')->delete($key);
+
         return $product->save();
     }
 
@@ -34,8 +40,8 @@ class ProductService
      * Update product
      *
      * @param ProductUpdateDto $request
-     * @throws ClientException
      * @return bool
+     * @throws ClientException|InvalidArgumentException
      */
     public function update(ProductUpdateDto $request): bool
     {
@@ -47,6 +53,11 @@ class ProductService
             $product->price = $request->price;
             $product->thumbnail = $request->thumbnail;
             $product->category_id = $request->category_id;
+
+            $key = 'cached_product';
+            Cache::store('redis')->delete($key);
+            $keyId = 'cached_product_id_' . $request->id;
+            Cache::store('redis')->delete($keyId);
 
             return $product->save();
         } catch (ModelNotFoundException) {
@@ -71,9 +82,13 @@ class ProductService
      * @param $id
      * @param $quantity
      * @return mixed
+     * @throws InvalidArgumentException
      */
     public static function incrementSoldCount($id, $quantity): mixed
     {
+        $key = 'cached_product';
+        Cache::store('redis')->delete($key);
+
         return Product::where('id', $id)->increment('sold_count', $quantity);
     }
 }
