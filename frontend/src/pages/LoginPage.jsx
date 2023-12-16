@@ -2,9 +2,6 @@ import React from 'react';
 import LoginForm from '../components/Form/LoginForm';
 import Navbar from "../components/UI/Navbar";
 const LoginPage = () => {
-    const handleLogin = (credentials) => {
-        console.log('Logging in with:', credentials);
-    };
 
     return (
         <div>
@@ -16,7 +13,7 @@ const LoginPage = () => {
             <br/>
             <br/>
             <div className="login-container">
-                <LoginForm onLogin={handleLogin} />
+                <LoginForm />
             </div>
         </div>
     );

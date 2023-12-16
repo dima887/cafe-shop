@@ -65,9 +65,12 @@ class CategoryService
      *
      * @param int $id
      * @return int
+     * @throws InvalidArgumentException
      */
     public function delete(int $id): int
     {
+        $key = 'cached_category';
+        Cache::store('redis')->delete($key);
         return Category::destroy($id);
     }
 }

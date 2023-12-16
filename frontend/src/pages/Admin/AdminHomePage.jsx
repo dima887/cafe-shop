@@ -3,10 +3,11 @@ import AdminNavbar from "../../components/Admin/UI/AdminNavbar";
 import CategoryList from "../../components/Admin/Section/CategoryList";
 import http from "../../axios";
 import CreateCategoryModal from "../../components/Admin/UI/CreateCategoryModal";
+import useCategoryFunctions from "../../hooks/useCategoryFunctions";
 
 const AdminHomePage = () => {
 
-    const [categories, setCategories] = useState([]);
+    const { category, setCategory, getAllCategory, deleteCategory} = useCategoryFunctions();
     const [isModel, setIsModal] = useState(false);
     const [categoryForm, setCategoryForm] = useState({
         category: '',
@@ -15,17 +16,6 @@ const AdminHomePage = () => {
     });
 
     useEffect(() => {
-        const getAllCategory = () => {
-            http.get('api/category')
-                .then((res) => {
-
-                    setCategories(res.data);
-                })
-                .catch((er) => {
-                    console.log(er);
-                });
-        };
-
         getAllCategory();
     }, [])
 
@@ -34,7 +24,7 @@ const AdminHomePage = () => {
     };
 
     const addCategory = (newCategory) => {
-        setCategories([...categories, newCategory])
+        setCategory([...category, newCategory])
     };
 
     const storeCategory = (category) => {
@@ -52,20 +42,6 @@ const AdminHomePage = () => {
                 console.log(er);
             });
 
-    }
-
-    const removeCategoryFromList = (category) => {
-        setCategories(categories.filter(c => c.id !== category))
-    }
-
-    const deleteCategory = (id) => {
-        http.delete('api/category/' + id)
-            .then((res) => {
-                removeCategoryFromList(id)
-            })
-            .catch((er) => {
-                console.log(er);
-            });
     }
 
 
@@ -89,7 +65,7 @@ const AdminHomePage = () => {
                 setCategoryForm={setCategoryForm}
             />
 
-            <CategoryList categories={categories} deleteCategory={deleteCategory}/>
+            <CategoryList categories={category} deleteCategory={deleteCategory}/>
         </div>
     );
 };

@@ -355,6 +355,7 @@ class ProductController extends Controller
      * @param ProductService $productService
      * @param int $id
      * @return JsonResponse
+     * @throws InvalidArgumentException
      */
     public function delete(ProductService $productService, int $id): JsonResponse
     {

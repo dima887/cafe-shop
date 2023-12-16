@@ -1,36 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../styles/Form/LoginForm.css';
-import http from "../../axios";
-import {loginUser} from "../../redux/actions/user";
-import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
+import useAuthFunctions from "../../hooks/useAuthFunctions";
 
-const RegisterForm = ({ onLogin }) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
-    const history = useHistory();
-
-    const handleLogin = (event) => {
-        event.preventDefault();
-        onLogin({ name, email, password });
-
-        const credentials = {
-            name: name,
-            email: email,
-            password: password,
-        };
-
-        http.post('api/register', credentials)
-            .then((res) => {
-                dispatch(loginUser(res.data.user));
-                history.push('/');
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    };
+const RegisterForm = () => {
+    const { name, setName, email, setEmail, password, setPassword, handleRegister } = useAuthFunctions();
 
     return (
         <div className="login-form">
@@ -63,7 +36,7 @@ const RegisterForm = ({ onLogin }) => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button onClick={handleLogin} className={'button-login'}>Register</button>
+                <button onClick={handleRegister} className={'button-login'}>Register</button>
             </form>
 
         </div>

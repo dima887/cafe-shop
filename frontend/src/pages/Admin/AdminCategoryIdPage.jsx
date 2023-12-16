@@ -1,36 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import AdminNavbar from "../../components/Admin/UI/AdminNavbar";
-import http from "../../axios";
 import {useParams} from "react-router-dom";
-import Navbar from "../../components/UI/Navbar";
 import Footer from "../../components/UI/Footer";
-import CreateCategoryModal from "../../components/Admin/UI/CreateCategoryModal";
+import useCategoryFunctions from "../../hooks/useCategoryFunctions";
 
 const AdminCategoryIdPage = () => {
 
     const { id } = useParams();
 
-    const [categories, setCategory] = useState([]);
+    const { category, getCategoryById} = useCategoryFunctions();
 
     useEffect(() => {
-        const getAllNews = () => {
-            http.get('api/category/' + id)
-                .then((res) => {
-                    setCategory(res.data)
-                })
-                .catch((er) => {
-                    console.log(er)
-                })
-        };
-
-        getAllNews();
+        getCategoryById(id);
     }, [])
-
-    const category = categories.find((post) => post.id === parseInt(id));
-
-    if (!category) {
-        return <div>Category not found</div>;
-    }
 
     return (
         <div>

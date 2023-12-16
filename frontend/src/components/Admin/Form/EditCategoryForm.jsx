@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../../styles/Form/ReviewForm.css';
 
-const ReviewForm = ({ id,  sendForm, categoryForm, setCategoryForm }) => {
+const EditCategoryForm = ({ id,  sendForm, categoryForm, setCategoryForm }) => {
     const updateCategory = (event) => {
         event.preventDefault();
-        sendForm(categoryForm);
+        sendForm(id);
     }
 
     return (
@@ -34,4 +34,4 @@ const ReviewForm = ({ id,  sendForm, categoryForm, setCategoryForm }) => {
     );
 };
 
-export default ReviewForm;
+export default EditCategoryForm;

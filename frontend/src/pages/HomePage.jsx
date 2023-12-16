@@ -1,25 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Navbar from "../components/UI/Navbar";
 import WelcomeSection from "../components/Section/WelcomeSection";
 import MenuSection from "../components/Section/MenuSection";
 import ReviewSection from "../components/Section/ReviewSection";
 import Footer from "../components/UI/Footer";
-import http from "../axios";
+import useCategoryFunctions from "../hooks/useCategoryFunctions";
 const HomePage = () => {
 
-    const [categories, setCategories] = useState([]);
+    const { category, getAllCategory} = useCategoryFunctions();
 
     useEffect(() => {
-        const getAllCategory = () => {
-            http.get('api/category')
-                .then((res) => {
-                    setCategories(res.data);
-                })
-                .catch((er) => {
-                    console.log(er);
-                });
-        };
-
         getAllCategory();
     }, []);
 
@@ -29,7 +19,7 @@ const HomePage = () => {
 
             <WelcomeSection/>
 
-            <MenuSection categories={categories}/>
+            <MenuSection categories={category}/>
 
             <ReviewSection/>
 

@@ -1,43 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import AdminNavbar from "../../components/Admin/UI/AdminNavbar";
-import http from "../../axios";
 import {useParams} from "react-router-dom";
 import EditCategoryForm from "../../components/Admin/Form/EditCategoryForm";
+import useCategoryFunctions from "../../hooks/useCategoryFunctions";
 
 const AdminCategoryEditPage = () => {
 
     const { id } = useParams();
 
-    const [category, setCategory] = useState([]);
-
+    const { category, setCategory, getCategoryById, updateCategory } = useCategoryFunctions();
     useEffect(() => {
-        const getCategoryById = () => {
-            http.get('api/category/' + id)
-                .then((res) => {
-                    setCategory(res.data[0])
-                    console.log(res.data[0])
-                })
-                .catch((er) => {
-                    console.log(er)
-                })
-        };
-
-        getCategoryById();
+        getCategoryById(id);
     }, [])
-
-    const updateCategory = () => {
-        http.put('api/category/' + id, {
-            category: category.category,
-            description: category.description,
-            thumbnail: 'https://via.placeholder.com/640x480.png/00ffcc?text=non'
-        })
-            .then((res) => {
-
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
 
     return (
         <div>

@@ -70,9 +70,12 @@ class ProductService
      *
      * @param int $id
      * @return int
+     * @throws InvalidArgumentException
      */
     public function delete(int $id): int
     {
+        $key = 'cached_product';
+        Cache::store('redis')->delete($key);
         return Product::destroy($id);
     }
 

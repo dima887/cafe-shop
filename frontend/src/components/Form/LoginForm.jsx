@@ -1,35 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../styles/Form/LoginForm.css';
-import http from "../../axios";
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/actions/user';
-import {useHistory} from "react-router-dom";
+import useAuthFunctions from "../../hooks/useAuthFunctions";
 
-const LoginForm = ({ onLogin }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const handleLogin = (event) => {
-        event.preventDefault();
-        onLogin({ email, password });
+const LoginForm = () => {
 
-        const credentials = {
-            email: email,
-            password: password,
-        };
-
-        http.post('api/login', credentials)
-            .then((res) => {
-                dispatch(loginUser(res.data.user));
-                history.push('/');
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    };
-
-
+    const { email, setEmail, password, setPassword, handleLogin } = useAuthFunctions();
 
     return (
         <div className="login-form">

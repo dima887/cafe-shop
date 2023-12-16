@@ -4,9 +4,8 @@ import '../../styles/UI/Navbar.css';
 import Basket from "./Basket";
 import ModalPaymentCancel from "./ModalPaymentCancel";
 import ModalPaymentSuccess from "./ModalPaymentSuccess";
-import http from "../../axios";
-import {useDispatch, useSelector} from "react-redux";
-import {logoutUser} from "../../redux/actions/user";
+import {useSelector} from "react-redux";
+import useAuthFunctions from "../../hooks/useAuthFunctions";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -15,8 +14,8 @@ const Navbar = () => {
     const [successPaymentModal, setSuccessPaymentModal] = useState(false);
     const location = useLocation();
     const history = useHistory();
-    const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
+    const { handleLogout } = useAuthFunctions();
 
     useEffect(() => {
         if (location.search === '?payment=false') {
@@ -28,16 +27,6 @@ const Navbar = () => {
         }
 
     }, [location.search]);
-
-    const handleLogout = () => {
-        http.post('api/logout')
-            .then((res) => {
-                dispatch(logoutUser());
-            })
-            .catch((err) => {
-                console.error('Logout failed', err);
-            });
-    };
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);

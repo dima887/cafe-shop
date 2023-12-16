@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../styles/Page/MenuPage.css';
 import Navbar from "../components/UI/Navbar";
 import NameSection from "../components/UI/NameSection";
@@ -9,7 +9,12 @@ import useBasketFunctions from "../hooks/useBasketFunctions";
 
 const MenuPage = () => {
 
-    const { categories } = useCategoryFunctions();
+    const { category , getAllCategory} = useCategoryFunctions();
+
+    useEffect(() => {
+        getAllCategory();
+    }, []);
+
     const { setBasketInCookie } = useBasketFunctions();
 
     return (
@@ -31,12 +36,12 @@ const MenuPage = () => {
                 unparalleled satisfaction. Explore the extraordinary and savor the extraordinary – because at our
                 establishment, the menu is not just a list; it's an invitation to savor the extraordinary.</p>
 
-            {categories.map((category, index) => (
+            {category.map((value, index) => (
                 <div key={index}>
-                    <NameSection name={category.category} />
+                    <NameSection name={value.category} />
                     <section className="page-menu-section">
                         <div className="page-menu-container">
-                            {category.products.map((item, itemIndex) => (
+                            {value.products.map((item, itemIndex) => (
                                 <MenuList
                                     key={itemIndex}
                                     id={item.id}

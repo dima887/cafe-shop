@@ -8,40 +8,20 @@ import ReviewProductSection from "../components/Section/ReviewProductSection";
 import ReviewForm from "../components/Form/ReviewForm";
 import useBasketFunctions from "../hooks/useBasketFunctions";
 import {useSelector} from "react-redux";
+import useProductFunctions from "../hooks/useProductFunctions";
+import useReviewFunctions from "../hooks/useReviewFunctions";
 
 const ProductPage = () => {
     const { id } = useParams();
-
-    const [product, setProduct] = useState([]);
-    const [reviews, setReview] = useState([]);
     const [reviewForm, setReviewForm] = useState({review: ''});
     const { setBasketInCookie } = useBasketFunctions();
     const user = useSelector((state) => state.user);
+    const { product, getProductById } = useProductFunctions();
+    const { reviews, setReview, getReviewByIdProduct} = useReviewFunctions();
 
     useEffect(() => {
-        const getAllNews = () => {
-            http.get('api/product/' + id)
-                .then((res) => {
-                    setProduct(res.data)
-                })
-                .catch((er) => {
-                    console.log(er)
-                })
-        };
-
-        const getReviewByIdProduct = () => {
-            http.get('api/review/product/' + id)
-                .then((res) => {
-                    setReview(res.data)
-                })
-                .catch((er) => {
-                    console.log(er)
-                })
-        }
-
-
-        getAllNews();
-        getReviewByIdProduct();
+        getProductById(id)
+        getReviewByIdProduct(id);
     }, [])
 
     const isProduct = product.find((post) => post.id === parseInt(id));

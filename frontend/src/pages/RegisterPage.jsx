@@ -3,9 +3,6 @@ import Navbar from "../components/UI/Navbar";
 import RegisterForm from "../components/Form/RegisterForm";
 
 const RegisterPage = () => {
-    const handleLogin = (credentials) => {
-        console.log('Register in with:', credentials);
-    };
 
     return (
         <div>
@@ -17,7 +14,7 @@ const RegisterPage = () => {
             <br/>
             <br/>
             <div className="login-container">
-                <RegisterForm onLogin={handleLogin} />
+                <RegisterForm />
             </div>
         </div>
     );

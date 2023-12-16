@@ -1,27 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/Page/PostPage.css';
 import Navbar from "../components/UI/Navbar";
 import Footer from "../components/UI/Footer";
-import http from "../axios";
+import useNewsFunctions from "../hooks/useNewsFunctions";
 
 const PostPage = () => {
     const { id } = useParams();
 
-    const [news, setNews] = useState([]);
+    const { news, getNewsById } = useNewsFunctions();
 
     useEffect(() => {
-        const getAllNews = () => {
-            http.get('api/news/' + id)
-                .then((res) => {
-                    setNews(res.data)
-                })
-                .catch((er) => {
-                    console.log(er)
-                })
-        };
-
-        getAllNews();
+        getNewsById(id)
     }, [])
 
     const post = news.find((post) => post.id === parseInt(id));

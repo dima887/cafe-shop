@@ -334,6 +334,7 @@ class CategoryController extends Controller
      * @param CategoryService $categoryService
      * @param int $id
      * @return JsonResponse
+     * @throws InvalidArgumentException
      */
     public function delete(CategoryService $categoryService, int $id): JsonResponse
     {
