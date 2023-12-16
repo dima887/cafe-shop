@@ -26,6 +26,13 @@
             <li>Order List.</li>
         </ul>
     </li>
+    <li>Swagger UI:
+        <ul>
+            <li>List of API routes with descriptions</li>
+            <li>Examples of received data</li>
+            <li>Examples for sending data</li>
+        </ul>
+    </li>
 </ol>
 
 <h3>Technologies:</h3>
@@ -34,6 +41,7 @@
     <li>Frontend: React.js</li>
     <li>Test: PHPUnit</li>
     <li>Docker: The project is easily deployable locally using Docker.</li>
+    <li>Swagger UI: Visualize and interact with the API’s resources without having any of the implementation logic in place.</li>
     <li>Redis: Redis is used for data caching and performance improvement.</li>
     <li>Stripe API: Integrated with the Stripe payment system API for secure and convenient payments.</li>
     <li>WebSockets: for instant updates of the order list in the administrative panel.</li>
@@ -103,6 +111,8 @@ The project will be accessible through the following links:
 Frontend `shop.local:3000`
 
 Backend `api.shop.local:8080`
+
+Swagger-documentation `api.shop.local:8080/api/documentation`
 
 PHPMyAdmin `localhost:8081`
 
