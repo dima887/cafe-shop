@@ -1,19 +1,19 @@
 version: '3'
 services:
 
-#  frontend:
-#    build:
-#      context: ./frontend
-#      dockerfile: Dockerfile
-#    restart: unless-stopped
-#    container_name: frontend
-#    ports:
-#      - "3000:3000"
-#    volumes:
-#      - ./frontend/src:/app/src
-#      - ./frontend/public:/app/public
-#    networks:
-#      - shop-network
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    networks:
+      - shop-network
 
   backend:
     build:
@@ -27,6 +27,7 @@ services:
       - ./backend:/var/www/html
     depends_on:
       - mysql
+      - composer
     networks:
       - shop-network
 
@@ -107,33 +108,15 @@ services:
     networks:
       - shop-network
 
-#  postgres:
-#    build:
-#      context: ./postgresql
-#      dockerfile: Dockerfile
-#    restart: unless-stopped
-#    container_name: postgresql
-#    environment:
-#      POSTGRES_DB: laravel
-#      POSTGRES_USER: user
-#      POSTGRES_PASSWORD: root
-#    ports:
-#      - "5432:5432"
-#    volumes:
-#      - ./postgresql/data:/var/lib/postgresql/data
-#    networks:
-#      - shop-network
-#
-#  adminer:
-#    image: adminer
-#    restart: unless-stopped
-#    container_name: adminer
-#    ports:
-#      - "8081:8080"
-#    depends_on:
-#      - postgres
-#    networks:
-#      - shop-network
+  composer:
+    image: composer:latest
+    container_name: composer
+    working_dir: /var/www/html
+    command: install --ignore-platform-req=ext-http
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - shop-network
 
 networks:
   shop-network:
